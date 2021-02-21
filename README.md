@@ -101,8 +101,9 @@ func init() {
 打包成功后,会在当前项目的根目录下面生成.tar.gz文件,我们将这个文件上传到服务器的文件夹中进行解压即可
 关于文件夹,建议放在www/wwwroot/常见一个文件夹  这样的目录下,我自己的目录:www/wwwroot/micom
 
-接着,进入到micom中,输入 nohub ./项目名称 &  即可运行项目  nohub ./micom &
-[scode type="yellow"]项目中用到了redis,需要在服务器中安装redis[/scode]
+接着,进入到micom中,输入 nohub ./项目名称 &  即可运行项目  `nohub ./micom &`
+
+`项目中用到了redis,需要在服务器中安装`
 
 项目跑起来后,可以通过服务器的IP地址,加上你在项目中.conf配置文件中设置的端口号进行访问
 
@@ -114,7 +115,46 @@ func init() {
 在/www/server/panel/vhost/nginx 这个目录下,新建了一个配置文件 **micom.conf**
 将IP地址指向了刚刚解析的域名,这样我们就可以通过域名进行访问
 ![][53]
+```conf
+server {
+    listen       80;
+    server_name  mi.sunyj.xyz;
 
+    #charset koi8-r;
+    #access_log  /var/log/nginx/host.access.log  main;
+
+    location / {
+	#设置主机头和客户端真实地址，以便服务器获取客户端真实 IP
+	proxy_set_header Host $host;
+	proxy_set_header X-Real-IP $remote_addr;
+	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+	#禁用缓存
+	proxy_buffering off;
+        
+	proxy_pass http://42.***.**.**:****/;
+    }
+    location /socket.io {        
+		# 此处改为 socket.io 后端的 ip 和端口即可
+		proxy_pass http://127.0.0.1:3001;
+
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection "upgrade";
+		proxy_http_version 1.1;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header Host $host;
+    }
+
+    #error_page  404              /404.html;
+
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+ 
+}
+```
 
   [8]: https://syjun.vip/usr/uploads/2021/02/3947349086.png
   [9]: https://syjun.vip/usr/uploads/2021/02/1067360970.png
