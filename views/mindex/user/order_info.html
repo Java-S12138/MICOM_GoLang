@@ -1,0 +1,211 @@
+{{template "../public/page_header.html" .}}
+{{template "../public/banner.html" .}}
+<!-- end banner_x -->
+<link rel="stylesheet" href="/static/mindex/css/order.css" />
+<!-- self_info -->
+<div class="grzxbj">
+	<div class="selfinfo center">
+		<div class="lfnav fl">
+			<div class="ddzx">个人中心</div>
+			<div class="subddzx">
+				{{template "../public/user_left.html" .}}
+			</div>
+
+		</div>
+		<div class="rtcont fr">
+			<h1>订单详情</h1>
+			<div class="uc-content-box">
+				<div class="uc-box uc-main-box">
+					<div class="uc-content-box order-view-box">
+						<div class="box-hd">
+							<div class="more clearfix">
+								<h2 class="subtitle">订单号：{{.order.OrderId}}<span class="tag tag-subsidy"></span>
+								</h2>
+								<div class="actions">
+									<a title="申请售后" href="#" class="btn btn-small btn-line-gray">申请售后</a>
+									<a title="申请售后" id="del-order" href="/user/delOrder?id={{.order.Id}}" class="btn btn-small btn-line-gray">删除订单</a>
+								</div>
+							</div>
+						</div>
+						<div class="box-bd">
+							<div class="uc-order-item uc-order-item-finish">
+								<div class="order-detail">
+									<div class="order-summary">
+
+										<div class="order-status">
+											{{if eq .order.OrderStatus 0}}
+												已下单 未支付
+											{{else if eq .order.OrderStatus 1}}
+												已付款
+											{{else if eq .order.OrderStatus 2}}
+												已配货
+											{{else if eq .order.OrderStatus 3}}
+												已发货
+											{{else if eq .order.OrderStatus 4}}
+												交易成功
+											{{else if eq .order.OrderStatus 5}}
+												已退货
+											{{else if eq .order.OrderStatus 6}}
+												无效 已取消
+											{{end}}
+										</div>
+
+										<div class="order-progress">
+											<ol class="progress-list clearfix progress-list-5">
+												<li class="step step-first {{if ge .order.OrderStatus 0}}step-done{{end}}">
+													<div class="progress"><span class="text">下单</span></div>
+													<div class="info">2021年02月20日 18:45</div>
+												</li>
+												<li class="step {{if ge .order.OrderStatus 1}}step-done{{end}}">
+													<div class="progress"><span class="text">付款</span></div>
+													<div class="info">2021年02月20日 18:45</div>
+												</li>
+												<li class="step {{if ge .order.OrderStatus 2}}step-done{{end}}">
+													<div class="progress"><span class="text">配货</span></div>
+													<div class="info">2021年02月20日 18:50</div>
+												</li>
+												<li class="step {{if ge .order.OrderStatus 3}}step-done{{end}}">
+													<div class="progress"><span class="text">出库</span></div>
+													<div class="info">2021年02月20日 19:00</div>
+												</li>
+												<li class="step {{if ge .order.OrderStatus 4}}step-done{{end}} step-active step-last">
+													<div class="progress"><span class="text">交易成功</span></div>
+													<div class="info">2021年02月21日 08:16</div>
+												</li>
+											</ol>
+										</div>
+
+
+									</div>
+
+									<table class="order-items-table">
+										<tbody>
+										{{range $k,$v := .order.OrderItem}}
+											<tr>
+												<td class="col col-thumb">
+													<div class="figure figure-thumb">
+														<img src="{{$v.ProductImg | formatImg}}" width="60px" />
+													</div>
+												</td>
+												<td class="col col-name">
+													<p class="name">
+														<a href="#">{{$v.ProductTitle}}</a>
+
+													</p>
+												</td>
+												<td class="col col-price">
+													<p class="price">{{$v.ProductPrice}}元 × {{$v.ProductNum}}</p>
+												</td>
+												<td class="col col-actions">
+
+												</td>
+											</tr>
+										{{end}}
+
+										</tbody>
+									</table>
+								</div>
+
+								<!-- 订金盲约订单 -->
+
+								<div id="editAddr" class="order-detail-info">
+
+									<h3>收货信息</h3>
+									<table class="info-table">
+										<tbody>
+										<tr>
+											<th>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</th>
+											<td>{{.order.Name}}</td>
+										</tr>
+										<tr>
+											<th>联系电话：</th>
+											<td>{{.order.Phone}}</td>
+										</tr>
+										<tr>
+											<th>收货地址：</th>
+											<td>{{.order.Address}}</td>
+										</tr>
+										</tbody>
+									</table>
+									<div class="actions">
+									</div>
+
+								</div>
+
+								<div id="editTime" class="order-detail-info">
+									<h3>支付方式</h3>
+									<table class="info-table">
+										<tbody>
+										<tr>
+											<th>支付方式：</th>
+											<td>在线支付</td>
+										</tr>
+
+										</tbody>
+									</table>
+									<div class="actions">
+									</div>
+								</div>
+								<div class="order-detail-info">
+									<h3>发票信息</h3>
+									<table class="info-table">
+										<tbody>
+										<tr>
+											<th>发票类型：</th>
+											<td>电子发票</td>
+										</tr>
+										<tr>
+											<th>发票内容：</th>
+											<td>购买商品明细</td>
+										</tr>
+										<tr>
+											<th>发票抬头：</th>
+											<td>个人</td>
+										</tr>
+										</tbody>
+
+									</table>
+
+								</div>
+
+								<div class="order-detail-total">
+									<table class="total-table">
+
+										<tbody>
+
+										<tr>
+											<th class="total">实付金额：</th>
+											<td class="total"><span class="num">{{.order.AllPrice}}</span>元</td>
+										</tr>
+
+										</tbody>
+									</table>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+<!-- self_info -->
+
+{{template "../public/page_footer.html" .}}
+
+<script>
+
+	$(function () {
+		$("#del-order").click(function () {
+			var flag = confirm("您确实要删除此订单吗?")
+			return flag
+		})
+	})
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,234 @@
+{{template "../public/page_header.html" .}}
+
+
+<script src="/static/admin/js/jqPaginator.js"></script>
+
+<link rel="stylesheet" href="/static/mindex/css/order.css" />
+
+<div class="banner_x center">
+	<a href="/" target="_blank"><div class="logo fl"></div></a>
+
+	<div class="nav fl">
+		<ul class="clearfix" id="nav_list">
+			<li class="link-category" style="width: 140px;">
+				<a href="#">全部商品分类</a>
+
+				<div class="banner_y center ">
+					<div class="nav">
+						<ul class="all_goods_cate">
+							{{range $key,$value := .goodsCateList}}
+								<li style="width:200px !important">
+									{{if eq $value.Link ""}}
+										<a href="/category_{{$value.Id}}.html" target="_blank">{{$value.Title}}</a>
+									{{else}}
+										<a href="{{$value.Link}}" target="_blank">{{$value.Title}}</a>
+									{{end}}
+
+									<div class="arrow fr">
+										<img width="14px" src="http://bee.sunyj.xyz/arrow.png" alt="">
+									</div>
+									<div class="pop" style="left: 236px;top: -1px">
+										<ol class="cate_list clear">
+											{{range $k,$v := $value.GoodsCateItem}}
+												<li>
+													<div class="xuangou_left">
+														{{if eq $v.Link ""}}
+															<a href="/category_{{$v.Id}}.html" target="_blank" class="clearfix">
+																<div class="img fl">
+																	<img src="{{$v.CateImg | formatImg}}" alt="{{$v.Title}}">
+																</div>
+																<span class="fl">{{$v.Title}}</span>
+															</a>
+														{{else}}
+															<a href="{{$v.Link}}" target="_blank" class="clearfix">
+																<div class="img fl">
+																	<img src="{{$v.CateImg | formatImg}}" alt="{{$v.Title}}">
+																</div>
+																<span class="fl">{{$v.Title}}</span>
+															</a>
+														{{end}}
+													</div>
+												</li>
+											{{end}}
+										</ol>
+									</div>
+								</li>
+							{{end}}
+						</ul>
+					</div>
+				</div>
+			</li>
+			{{range $key,$value := .middleNavList}}
+				<li>
+					<a href="#" target="_blank">{{$value.Title}}</a>
+					{{if eq $value.GoodsNil "NO"}}
+						<ol class="children-list clearfix ">
+							{{range $k,$v := $value.GoodsItem}}
+								<li>
+									<a href="#">
+										<img src="{{$v.GoodsImg | formatImg}}" alt="{{$v.Title}}" />
+										<p class="navtitle">{{$v.Title}}</p>
+										<p>{{$v.Price}}元</p>
+									</a>
+								</li>
+							{{end}}
+						</ol>
+					{{end}}
+
+
+				</li>
+			{{end}}
+		</ul>
+	</div>
+	<div class="search fr">
+		<form action="https://www.syjun.vip" method="get">
+			<div class="text fl">
+				<input style="padding-left: 20px ;width: 235px" type="text" class="shuru"  placeholder="个人博客 www.syjun.vip">
+			</div>
+			<div class="submit fr">
+				<input type="submit" class="sousuo" value="搜索"/>
+			</div>
+			<div class="clear"></div>
+		</form>
+		<div class="clear"></div>
+	</div>
+</div>
+
+
+<!-- self_info -->
+<div class="grzxbj">
+	<div class="selfinfo center">
+		<div class="lfnav fl">
+			<div class="ddzx">个人中心</div>
+			<div class="subddzx">
+				{{template "../public/user_left.html" .}}
+			</div>
+
+		</div>
+		<div class="rtcont fr">
+			<h1>我的订单</h1>
+
+			<div class="uc-content-box">
+
+				<div class="box-hd">
+					<div class="more clearfix">
+						<ul class="filter-list J_orderType">
+							<li class="first active"><a href="/user/order">全部有效订单</a></li>
+							<li><a href="/user/order?order_status=0">未支付</a></li>
+							<li><a href="/user/order?order_status=1">已支付</a></li>
+							<li><a href="/user/order?order_status=3">待收货</a></li>
+							<li><a href="/user/order?order_status=6">已关闭</a></li>
+						</ul>
+						<form id="J_orderSearchForm" class="search-form clearfix" action="/user/order" method="get">
+
+							<input class="search-text" type="search" id="J_orderSearchKeywords" name="keywords"
+								autocomplete="off" placeholder="输入商品名称">
+							<input type="submit" class="search-btn iconfont" value="搜索">
+						</form>
+					</div>
+				</div>
+
+				{{if .order}}
+					<div class="box-bd">
+						<table class="table">
+
+							{{range $key,$value := .order}}
+								<tr>
+									<td colspan="2">
+
+										<div class="order-summary">
+											<h2 style="margin-bottom: 10px">
+												{{if eq $value.OrderStatus 0}}
+													已下单 未支付
+												{{else if eq $value.OrderStatus 1}}
+													已支付
+												{{else if eq $value.OrderStatus 2}}
+													已配货
+												{{else if eq $value.OrderStatus 3}}
+													已发货
+												{{else if eq $value.OrderStatus 4}}
+													交易成功
+												{{else if eq $value.OrderStatus 5}}
+													已退货
+												{{else if eq $value.OrderStatus 6}}
+													无效 已取消
+												{{end}}
+											</h2>
+											{{$value.AddTime | unixToDate}} | {{$value.Name}} | 订单号：{{$value.OrderId}} | 在线支付
+											实付金额：{{$value.AllPrice}} 元
+
+										</div>
+										{{range $k,$v := $value.OrderItem}}
+											<div class="order-info clearfix">
+												<div class="col_pic">
+													<img src="{{$v.ProductImg | formatImg}}" />
+												</div>
+												<div class="col_title">
+													<p>{{$v.ProductTitle}}</p>
+													<p>{{$v.ProductPrice}}元 × {{$v.ProductNum}}</p>
+													<p>合计：{{mul $v.ProductPrice $v.ProductNum}}元</p>
+												</div>
+											</div>
+										{{end}}
+
+									</td>
+
+									<td>
+										{{if eq $value.OrderStatus 1}}
+											<span>
+										<a class="btn" href="/user/orderinfo?id={{$value.Id}}">订单详情</a>
+										<br>
+										<br>
+										<a class="btn" href="#">申请售后</a>
+									</span>
+										{{else}}
+											<span>
+										<a class="delete btn btn-primary" href="/buy/confirm?id={{$value.Id}}">去支付</a>
+										<br>
+										<br>
+										<a class="delete btn" href="/user/orderinfo?id={{$value.Id}}">订单详情</a>
+									</span>
+										{{end}}
+									</td>
+								</tr>
+							{{end}}
+
+
+
+
+						</table>
+
+						<div id="page" class="pagination fr"></div>
+					</div>
+				{{else}}
+					<p style="text-align: center;padding-top: 100px">没有查到到订单</p>
+				{{end}}
+
+
+			</div>
+
+			<script>
+
+				$('#page').jqPaginator({
+					totalPages: {{.totalPages}},
+					visiblePages: 8,
+					currentPage: {{.page}},
+					onPageChange: function (num, type) {						
+						if (type == 'change') {
+							location.href = "/user/order?page=" + num +"&keywords="+{{.keywords}}+"&order_status="+{{.orderStatus}};
+						}
+					}
+				});
+
+			</script>
+
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+<!-- self_info -->
+
+{{template "../public/page_footer.html" .}}
+</body>
+
+</html>

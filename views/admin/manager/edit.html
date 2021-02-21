@@ -1,0 +1,51 @@
+{{template "../public/page_header.html" .}}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="panel panel-default">              
+            <div class="panel-heading">
+             编辑管理员
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive input-form">
+                    <form action="/{{config "String" "adminPath" ""}}/manager/doEdit" method="post">
+                        <ul>
+                            <input type="hidden" name="id"  value="{{.manager.Id}}">
+                            <li> 管理员名称: <input readonly type="text" name="username" value="{{.manager.Username}}" /></li>
+                            <li> 管理员密码: <input type="password" name="password" /></li>
+                            <li> 管理员电话: <input type="text" name="mobile"  value="{{.manager.Mobile}}" /></li>
+                            <li> 管理员邮箱: <input type="text" name="email"  value="{{.manager.Email}}" /></li>
+                            <li> 管理员角色:
+
+                            <select name="role_id" id="role_id">
+                                {{$roleId := .manager.RoleId}}
+                                {{range $key,$value := .role}}
+                                    {{if eq $value.Id $roleId}}
+                                        <option selected value="{{$value.Id}}">{{$value.Title}}</option>
+                                    {{else}}
+                                      <option value="{{$value.Id}}">{{$value.Title}}</option>
+                                    {{end}}
+                                {{end}}
+                            </select>
+
+                            </li>
+                            <li>
+                                <br/>
+                                <button type="submit" class="btn btn-default">提交</button>
+                            </li>
+
+                        </ul>
+
+
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

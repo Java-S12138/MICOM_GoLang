@@ -1,0 +1,18 @@
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a href="/admin">
+                <img src="/static/admin/images/node.jpg" class="logo" />
+            </a>
+
+        </div>
+        <div class="collapse navbar-collapse" id="example-navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a style="font-size: 18px">欢迎您,{{.username}}</a>
+                </li>
+                <li><a style="font-size: 18px" href="/{{config "String" "adminPath" ""}}/login/loginOut">安全退出</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

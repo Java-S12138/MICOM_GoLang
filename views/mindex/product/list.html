@@ -1,0 +1,78 @@
+{{template "../public/page_header.html" .}}
+{{template "../public/banner.html" .}}
+<script type="text/javascript" src="/static/admin/js/jqPaginator.js"></script>
+<link rel="stylesheet" href="/static/mindex/css/bootstrap.css">
+<!-- start danpin -->
+<div class="danpin center">
+
+	<div class="search-filter center">
+		<ul class="item show-less" id="list_item_class">
+			<span> 分类： </span>
+			{{$currentId := .curretGoodsCate.Id}}
+			{{range $key,$value := .subGoodsCate}}
+				{{if eq $value.Id $currentId}}
+					{{if eq $value.Link ""}}
+						<li><a class="active" href="category_{{$value.Id}}.html">{{$value.Title}}</a></li>
+					{{end}}
+
+				{{else}}
+					{{if eq $value.Link ""}}
+						<li><a href="category_{{$value.Id}}.html">{{$value.Title}}</a></li>
+					{{end}}
+				{{end}}
+			{{end}}
+		</ul>
+	</div>
+
+
+	<div class="main center mb20">
+		{{range $key,$value := .goodsList}}
+			{{ $numJudge := $key | judge }}
+			{{if $numJudge }}
+				<div class="mingxing fl mb20 " style="border:2px solid #fff;width:230px;cursor:pointer;"
+					 onmouseout="this.style.border='2px solid #fff'" onmousemove="this.style.border='2px solid #ff6700'">
+			{{else}}
+				<div class="mingxing fl mb20 " style="border:2px solid #fff;width:230px;cursor:pointer;margin-right:14px"
+					 onmouseout="this.style.border='2px solid #fff'" onmousemove="this.style.border='2px solid #ff6700'">
+			{{end}}
+					<div class="sub_mingxing">
+						<a href="/item_{{$value.Id}}.html" target="_blank">
+							<img src="{{$value.GoodsImg | formatImg}}" alt="{{$value.Title}}" />
+						</a>
+					</div>
+					<div class="pinpai"><a href="#" target="_blank">{{$value.Title}}</a></div>
+					<div class="jiage">{{$value.Price}}元</div>
+				</div>
+		{{end}}
+		<div class="clear"></div>
+		<div id="pagination" class="pagination fr">
+
+		</div>
+	</div>
+	<div class="clear"></div>
+
+
+</div>
+
+<!-- end danpin -->
+
+<script>
+	$(function(){
+		$('#pagination').jqPaginator({
+			totalPages: {{.totalPages}},
+			visiblePages: 10,
+			currentPage: {{.page}},
+			onPageChange: function (num, type) {
+				console.log(num,type)
+				if(type=="change"){
+					location.href="/category_{{.curretGoodsCate.Id}}.html?page="+num;
+				}
+			}
+		});
+	})
+</script>
+
+{{template "../public/page_footer.html" .}}
+
+</body>
+</html>

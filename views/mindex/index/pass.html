@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ch">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册账号</title>
+    <link rel="shortcut icon" href="//s01.mifile.cn/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="/static/mindex/css/login.css">
+</head>
+
+<body>
+<div class="container">
+    <!-- 注册 -->
+    <div class="container__form container--signup">
+        <form action="/pass/setpass" class="form" id="form1" method="post">
+            <h2 class="form__title">注册账号</h2>
+            <input type="text" name="phone" id="phone" placeholder="Phone" class="input" />
+            <input type="email" name="email" placeholder="Email" class="input" />
+            <input type="password" name="passwd" placeholder="Password" class="input" />
+            <input type="text" name="captcha" id="photo_code" placeholder="验证码" class="input input-captcha" />
+            {{create_captcha}}
+            <button type="submit" class="btn" id="btnpass">点击注册</button>
+        </form>
+    </div>
+
+    <!-- 登录 -->
+    <div class="container__form container--signin">
+        <form action="/pass/login" class="form" id="form2" method="post">
+            <h2 class="form__title">欢迎登录</h2>
+            <h2 class="form__title">小米商城GoLang</h2>
+            <input type="email" name="email" placeholder="Email" class="input" />
+            <input type="password" name="passwd" placeholder="Password" class="input" />
+            <a href="#" class="link">忘记密码?</a>
+            <button class="btn" type="submit">登录</button>
+        </form>
+    </div>
+
+    <!-- 叠加部分 -->
+    <div class="container__overlay">
+        <div class="overlay">
+            <div class="overlay__panel overlay--left">
+                <button class="btn" id="signIn">已有账号，直接登录</button>
+            </div>
+            <div class="overlay__panel overlay--right">
+                <button class="btn" id="signUp">没有账号，点击注册</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="/static/mindex/js/script.js"></script>
+<script src="/static/mindex/js/jquery-1.10.1.js"></script>
+<script>
+    $(function () {
+        $("#signUp").trigger("click");
+
+        $("#btnpass").click(function () {
+            //验证验证码是否正确
+            var phone = $('#phone').val();
+            var photo_code = $('#photo_code').val();
+            var photoCodeId = $("input[name='captcha_id']").val();
+            var reg = /^[\d]{11}$/;
+            if (!reg.test(phone)) {
+                $("#phone").val("")
+                $("#phone").attr("placeholder","Error：手机号输入错误");
+                return false;
+            }
+            if (photo_code.length < 4) {
+                $("#photo_code").val("")
+                $("#photo_code").attr("placeholder","Error：验证码格式错误");
+                return false;
+            }
+        })
+    })
+</script>
+
+</html>

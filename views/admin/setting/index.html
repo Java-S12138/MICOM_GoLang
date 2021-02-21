@@ -1,0 +1,93 @@
+{{template "../public/page_header.html" .}}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="panel panel-default">              
+            <div class="panel-heading">
+             系统设置
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive input-form news_content">
+                    <form action="/{{config "String" "adminPath" ""}}/setting/doEdit" method="post" enctype="multipart/form-data">
+
+
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#general" role="tab"
+                                    data-toggle="tab">通用信息</a></li>
+                            <li role="presentation"><a href="#oss" role="tab" data-toggle="tab">OSS云存储配置</a></li>
+
+                        </ul>
+
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="general">
+                                <ul class="form_input">
+                                    <li>
+                                        <span>网站标题:</span> <input type="text" class="input" name="site_title" value="{{.setting.SiteTitle}}"/>
+                                    </li>
+            
+                                    <li><span>网站logo:</span>  
+                                        <input type="file" name="site_logo"/>   
+                                        <br />
+                                        {{if ne .setting.SiteLogo ""}}
+                                                 <span></span>    <img class="pic" src="{{.setting.SiteLogo | formatImg}}" />
+                                        {{end}}
+                                     </li>
+            
+                                    <li><span>网站关键词:</span> <input type="text"  class="input" name="site_keywords"  value="{{.setting.SiteKeywords}}"/></li>
+            
+                                    <li><span>网站描述:</span>  <textarea name="site_description" style="width:600px;">{{.setting.SiteDescription}}</textarea></li>
+            
+                                    <li><span>商品默认图片:</span>  <input type="file" name="no_picture" />   
+                                        <br />                     
+                                        {{if ne .setting.NoPicture ""}}
+                                            <img class="pic" src="{{.setting.NoPicture | formatImg}}" />
+                                        {{end}}
+                                    </li> 
+                                     <li> <span>备案信息:</span> <input type="text" class="input" name="site_icp" value="{{.setting.SiteIcp}}"/></li>
+                                     <li> <span>网站电话:</span> <input type="text" class="input" name="site_tel" value="{{.setting.SiteTel}}"/></li>
+            
+                                     <li> <span>搜索关键词:</span> <input type="text" class="input" name="search_keywords" value="{{.setting.SearchKeywords}}"/></li>
+            
+                                     <li> <span>统计代码:</span> <input type="text" class="input" name="tongji_code" value="{{.setting.TongjiCode}}"/></li>
+            
+                                </ul>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="oss">
+                                <ul class="form_input">
+                                    <li>  <span>是否开启Oss: </span>
+                                        <input type="radio" name="oss_status" {{if eq .setting.OssStatus 1}} checked {{end}} value="1" id="a"/> <label for="a">是</label>    　
+                                        
+                                        <input type="radio" name="oss_status" {{if eq .setting.OssStatus 0}} checked {{end}} value="0" id="b"/><label for="b">否</label> 　</li>
+
+
+                                    <li>
+                                        <span>BucketName:</span> <input type="text" class="input" name="bucket_name" value="{{.setting.BucketName}}"/>
+                                    </li>
+                                    <li>
+                                        <span>Appid:</span> <input type="text" class="input" name="appid" value="{{.setting.Appid}}"/>
+                                    </li>
+                                    <li>
+                                        <span>AppSecret:</span> <input type="text" class="input" name="app_secret" value="{{.setting.AppSecret}}"/>
+                                    </li>            
+                                    <li>
+                                        <span>EndPoint:</span> <input type="text" class="input" name="end_point" value="{{.setting.EndPoint}}"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-success goods_content_btn">提交</button>
+
+                    </form>
+                    
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+{{template "../public/page_header.html"}}
+
+<div class="container-fluid">
+    <div class="row">
+       
+        <div class="panel panel-default">              
+            <div class="panel-heading">
+              增加轮播图
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive input-form">
+                    <form action="/{{config "String" "adminPath" ""}}/focus/doAdd" method="post"  enctype="multipart/form-data">
+                    
+                        <ul>
+                            <li>  类　　型: 
+                                <select name="focus_type" id="type">
+                                    <option value="1">网站</option>
+                                    <option value="2">APP</option>
+                                    <option value="3">小程序</option>
+                                </select>
+                            </li>
+                            <li>  名　　称: <input type="text" name="title"/></li>
+                            <li>  跳转地址: <input type="text" name="link"/></li>
+                            <li>  轮 播 图: <input type="file" name="focus_img"/></li>                            
+
+                            <li>  排　　序: <input type="text" name="sort" value="1000"/></li>
+
+                            <li>  状　　态: 
+                                <input type="radio" name="status" checked value="1" id="a"/> <label for="a">显示</label>    
+                                
+                                <input type="radio" name="status" value="0" id="b"/><label for="b">隐藏</label> 　</li>
+                            <li>
+                                <br/>
+                                <button type="submit" class="btn btn-primary">提交</button>
+                            </li>
+
+                        </ul>
+
+
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

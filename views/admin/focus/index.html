@@ -1,0 +1,66 @@
+{{template "../public/page_header.html"}}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="th">
+                        <th>轮播图名称</th>
+                        <th>轮播图类型</th>
+                        <th>轮播图图片</th>
+                        <th>跳转地址</th>
+                        <th class="text-center">排序</th>
+                        <th class="text-center">状态</th>
+                        <th class="text-center">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{range $key,$value := .focusList}}                 
+                        <tr>
+                            <td>{{$value.Title}}</td>
+                            <td>                          
+                                {{if eq $value.FocusType 1}}
+                                网站
+                                {{else if eq $value.FocusType 2}}
+                                APP
+                                {{else}}
+                                小程序
+                                {{end}}                       
+                            </td>
+                            <td>
+                                {{if ne $value.FocusImg ""}}
+                                        <img src="{{$value.FocusImg | formatImg}}" width="80"/>
+                                {{end}}
+
+                            </td>
+                            <td>{{$value.Link}}</td>
+                            <td class="text-center">
+                                <span class="chSpanNum" data-id="{{$value.Id}}" data-table="focus" data-field="sort" data-num="{{$value.Sort}}">
+                                    {{$value.Sort}}
+                                </span>
+                            </td>
+                            <td align="center" >
+                               {{if eq $value.Status 1}}                              
+                                    <img class="chStatus" data-id="{{$value.Id}}" data-table="focus" data-field="status" src="/static/admin/images/yes.gif" />
+                               {{else}}
+                                    <img class="chStatus" data-id="{{$value.Id}}" data-table="focus" data-field="status" src="/static/admin/images/no.gif" />
+                               {{end}}
+                            </td>                            
+
+                            <td class="text-center">                             
+                                <a href="/{{config "String" "adminPath" ""}}/focus/edit?id={{$value.Id}}" />编辑</a> 　
+                                
+                                <a class="delete" href="/{{config "String" "adminPath" ""}}/focus/delete?id={{$value.Id}}" />删除</a>                              
+                            </td>
+                        </tr>
+                    {{end}}
+                </tbody>
+            </table>
+           
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

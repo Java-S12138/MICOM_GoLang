@@ -1,0 +1,72 @@
+{{template "../public/page_header.html"}}
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                修改分类
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive input-form">
+                    <form action="/{{config "String" "adminPath" ""}}/goodsCate/doEdit" method="post" enctype="multipart/form-data">
+                        <ul>
+
+                            <input type="hidden" name="id"  value="{{.goodsCate.Id}}">
+                            
+                            <li> <span>分类名称:</span> <input type="text" name="title" class="input" value="{{.goodsCate.Title}}" /></li>
+
+                            <li> <span>上级分类:</span>
+                                <select name="pid" id="pid">
+                                    <option value="0">顶级分类</option>
+                                    {{$pid := .goodsCate.Pid}}
+                                    {{range $key,$value := .goodsCateList}}                                   
+                                        <option {{if eq $value.Id $pid}} selected {{end}}  value="{{$value.Id}}">{{$value.Title}}</option>
+                                    {{end}}
+                                </select>
+                            </li>  
+        
+                            <li> <span>分类图片:</span>  <input type="file" name="cate_img"/></li>
+
+                            {{$ossStatus := config "Bool" "ossStatus" false}}
+                            {{if ne .goodsCate.CateImg ""}}
+                                    <img width="500px" src="{{.goodsCate.CateImg | formatImg}}" size="60" />
+                            {{end}}
+
+                            <li>  <span>跳转地址:</span>  <input type="text" name="link" class="input" value="{{.goodsCate.Link}}"/></li> 
+        
+                            <li>  <span>分类模板:</span> <input type="text" name="template" class="input" value="{{.goodsCate.Template}}"/><span>空表示默认模板</span></li>
+        
+                            <li>  <span>Seo标题:</span> <input type="text" name="sub_title" class="input" value="{{.goodsCate.SubTitle}}"/></li>
+        
+                            <li>  <span>Seo关键词: </span><input type="text" name="keywords" class="input" value="{{.goodsCate.Keywords}}"/></li>
+        
+                            <li>  <span>Seo描述:</span> <textarea name="description" id="description" cols="84" rows="4">{{.goodsCate.Description}}</textarea></li>                   
+
+                            <li>  <span>排　　序:</span> <input type="text" name="sort" value="{{.goodsCate.Sort}}"/></li>       
+                            
+                            <li>  <span>状　　态:</span> 
+                                <input type="radio" name="status" {{if eq .goodsCate.Status 1}}checked{{end}} value="1" id="a"/> <label for="a">显示</label>    <input type="radio" name="status"  {{if eq .goodsCate.Status 0}}checked{{end}} value="0" id="b"/><label for="b">隐藏</label> 　</li>
+                            
+        
+
+                            <li>
+                                <br/>
+                                <button type="submit" class="btn btn-primary">提交</button>
+                            </li>
+
+                        </ul>
+
+
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

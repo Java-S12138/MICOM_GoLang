@@ -1,0 +1,91 @@
+{{template "../public/page_header.html"}}
+<div class="container-fluid">
+
+
+
+    <div class="row">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a href="/{{config "String" "adminPath" ""}}/goodsCate/add" class="btn btn-primary">增加商品分类</a>
+            </div>
+
+            <!--
+                列表展示
+            -->
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr class="th">
+                            <th>分类名称</th>
+                            <th>分类图片</th>
+                            <th class="text-center">排序</th>
+                            <th class="text-center">状态</th>
+                            <th class="text-center">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{range $key,$value := .goodsCateList}}                                   
+                      
+                        <tr>
+                            <td>{{$value.Title}}</td>
+
+                            <td></td>
+                            
+                            <td><span class="chSpanNum" data-id="{{$value.Id}}" data-table="goods_cate" data-field="sort" data-num="{{$value.Sort}}">{{$value.Sort}}</span></td>
+
+                            <td class="text-center">
+                                {{if eq $value.Status 1}}                              
+                                    <img src="/static/admin/images/yes.gif"  class="chStatus" data-id="{{$value.Id}}" data-table="goods_cate" data-field="status" />
+                                {{else}}
+                                        <img src="/static/admin/images/no.gif"  class="chStatus" data-id="{{$value.Id}}" data-table="goods_cate" data-field="status" />
+                                {{end}}
+        
+                            </td>                                                                    
+                            <td class="text-center">　
+                                <a href="/{{config "String" "adminPath" ""}}/goodsCate/edit?id={{$value.Id}}" />编辑</a> 　
+                                <a class="delete" href="/{{config "String" "adminPath" ""}}/goodsCate/delete?id={{$value.Id}}" />删除</a>
+                            </td>
+                        </tr>
+
+                         
+                         {{range $k,$v := $value.GoodsCateItem}}                
+                            <tr>
+                                <td>　　---{{$v.Title}}</td>
+
+                                <td>
+                                        <img width="100px" src="{{$v.CateImg | formatImg}}" />
+                                </td>
+
+                                <td class="text-center">
+                                    
+                                    <span class="chSpanNum" data-id="{{$v.Id}}" data-table="goods_cate" data-field="sort" data-num="{{$v.Sort}}">{{$v.Sort}}</span>
+                                
+                                
+                                </td>
+                                <td class="text-center">
+
+                                    {{if eq $v.Status 1}}                              
+                                        <img src="/static/admin/images/yes.gif"  class="chStatus" data-id="{{$v.Id}}" data-table="goods_cate" data-field="status" />
+                                    {{else}}
+                                            <img src="/static/admin/images/no.gif"  class="chStatus" data-id="{{$v.Id}}" data-table="goods_cate" data-field="status" />
+                                    {{end}}
+                
+                
+                                </td>                                                                    
+                                <td class="text-center">　
+                                    <a href="/{{config "String" "adminPath" ""}}/goodsCate/edit?id={{$v.Id}}" />编辑</a> 　
+                                    <a class="delete" href="/{{config "String" "adminPath" ""}}/goodsCate/delete?id={{$v.Id}}" />删除</a>
+                                </td>
+                            </tr>
+                            {{end}}
+                     {{end}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

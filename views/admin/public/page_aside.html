@@ -1,0 +1,33 @@
+<ul class="aside">
+    {{$isSuper := .isSuper}}
+    {{range $key, $val := .accessList}}
+        {{if eq $isSuper 1}}
+            <li>
+                <h4>{{$val.ModuleName}}</h4>
+                <ul>
+                    {{range $k, $v := $val.AccessItem}}
+                        {{if eq $v.Type 2}}
+                            <li  class="list-group-item"> <a target="rightMain" href="/{{config "String" "adminPath" ""}}{{$v.Url}}"> {{$v.ActionName}}</a></li>
+                        {{end}}
+                    {{end}}
+                </ul>
+            </li>
+
+        {{else}}
+            {{if eq $val.Checked true }}
+                <li>
+                    <h4>{{$val.ModuleName}}</h4>
+                    <ul>
+                        {{range $k, $v := $val.AccessItem}}
+                            {{if eq $v.Checked true}}
+                                {{if eq $v.Type 2}}
+                                    <li  class="list-group-item"> <a target="rightMain" href="/{{config "String" "adminPath" ""}}{{$v.Url}}"> {{$v.ActionName}}</a></li>
+                                {{end}}
+                            {{end}}
+                        {{end}}
+                    </ul>
+                </li>
+            {{end}}
+        {{end}}
+    {{end}}
+</ul>

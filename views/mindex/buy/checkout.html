@@ -1,0 +1,296 @@
+{{template "../public/page_header.html" .}}
+
+<!--end header -->
+
+<link rel="stylesheet" href="/static/mindex/css/checkout.css" />
+<link rel="stylesheet" href="/static/admin/bootstrap/css/bootstrap.css">
+<script src="/static/mindex/js/bootstrap.js"></script>
+<script src="/static/mindex/js/checkout.js"></script>
+
+<!-- start banner_x -->
+<div class="banner_x center clearfix mt20">
+	<a href="/" target="_blank">
+		<div class="logo fl"></div>
+	</a>
+	<div class="wdgwc fl ml40">确认订单 </div>
+</div>
+
+<form action="/buy/doOrder" method="post" id="checkoutForm">
+	<input type="hidden" name="orderSign" value="{{.orderSign}}">
+	<div class="checkout-box">
+	<div class="section section-address">
+		<div class="section-header clearfix">
+			<h3 class="title">收货地址</h3>
+
+			<div class="more">
+			</div>
+
+			<div class="mitv-tips hide" style="margin-left: 0;border: none;" id="J_bigproPostTip"></div>
+
+		</div>
+		<div class="section-body clearfix" id="J_addressList">
+			<!-- addresslist begin -->
+
+			<div id="addressList">
+
+
+				{{range $key,$value := .addressList}}
+					<div class="address-item J_addressItem {{if eq $value.DefaultAddress 1}}selected{{end}}"
+						 data-id="{{$value.Id}}">
+
+						<dl>
+							<dt> <em class="uname">{{$value.Name}}</em> </dt>
+							<dd class="utel">{{$value.Phone}}</dd>
+							<dd class="uaddress">{{$value.Address}} </dd>
+						</dl>
+
+						<div class="actions">
+							<a href="javascript:void(0);" data-id="{{$value.Id}}" class="modify addressModify">修改</a>
+						</div>
+					</div>
+				{{end}}
+
+
+
+			</div>
+
+
+			<!-- addresslist end -->
+			<div class="address-item address-item-new" id="J_newAddress" data-toggle="modal" data-target="#addModal">
+				<i class="iconfont">+</i> 添加新地址
+			</div>
+		</div>
+	</div>
+
+	<div class="section section-goods">
+		<div class="section-header clearfix">
+			<h3 class="title">商品及优惠券</h3>
+			<div class="more">
+				<a href="/cart" data-stat-id="4b8666e26639b521">返回购物车<i class="iconfont">></i></a>
+			</div>
+		</div>
+		<div class="section-body">
+			<ul class="goods-list" id="J_goodsList">
+
+				{{range $key,$value := .orderList}}
+					<li class="clearfix">
+						<div class="col col-img">
+							<img src="{{$value.GoodsImg | formatImg}}" width="30" height="30" />
+						</div>
+						<div class="col col-name">
+							<a href="#" target="_blank">
+								{{$value.Title}}--{{$value.GoodsColor}} {{$value.GoodsVersion}}
+							</a>
+						</div>
+
+						<div class="col col-price">
+							{{$value.Price}}元 x {{$value.Num}} </div>
+						<div class="col col-status">
+							&nbsp;
+						</div>
+						<div class="col col-total">
+							{{mul $value.Price $value.Num}}元
+						</div>
+					</li>
+				{{end}}
+
+			</ul>
+		</div>
+	</div>
+
+	<div class="section section-options section-payment clearfix hide">
+		<div class="section-header">
+			<h3 class="title">支付方式</h3>
+		</div>
+		<div class="section-body clearfix">
+			<ul class="J_optionList options ">
+				<li data-type="pay" class="J_option selected" data-value="1">
+					在线支付 <span>
+						（支持微信支付、支付宝、银联、财付通、小米钱包等） </span>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="section section-options section-shipment clearfix">
+		<div class="section-header">
+			<h3 class="title">配送方式</h3>
+		</div>
+		<div class="section-body clearfix">
+			<ul class="clearfix J_optionList options ">
+				<li data-type="shipment" class="J_option selected" data-amount="0" data-value="2">
+					包邮 </li>
+			</ul>
+
+			<div class="service-self-tip" id="J_serviceSelfTip" style="display: none;"></div>
+		</div>
+	</div>
+
+	<div class="section section-options section-time clearfix hide" style="display: block;">
+		<div class="section-header">
+			<h3 class="title">配送时间</h3>
+		</div>
+		<div class="section-body clearfix">
+			<ul class="J_optionList options options-list clearfix">
+				<!-- besttime start -->
+				<li data-type="time" class="J_option selected" data-value="1">
+					不限送货时间：<span>周一至周日</span> </li>
+				<li data-type="time" class="J_option " data-value="2">
+					工作日送货：<span>周一至周五</span> </li>
+				<li data-type="time" class="J_option " data-value="3">
+					双休日、假日送货：<span>周六至周日</span> </li>
+				<!-- besttime end -->
+			</ul>
+		</div>
+	</div>
+
+	<div class="section section-options section-invoice clearfix">
+		<div class="section-header">
+			<h3 class="title">发票</h3>
+		</div>
+		<div class="section-body clearfix">
+			<div class="invoice-result">
+				<span id="J_invoiceDesc">电子发票</span>
+				<span id="J_invoiceTitle">个人</span>
+				<span>商品明细</span>
+				<a href="#J_modalInvoiceInfo" data-toggle="modal" id="J_invoiceModify" data-stat-id="67efe13c31710c36"
+				   onclick="_msq.push(['trackEvent', '50d1f382fadafb8b-67efe13c31710c36', '#J_modalInvoiceInfo', 'pcpid', '']);">修改
+					&gt;</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="section section-count clearfix">
+
+		<div class="money-box" id="J_moneyBox">
+			<ul>
+				<li class="clearfix">
+					<label>商品件数：</label>
+					<span class="val">2件</span>
+				</li>
+				<li class="clearfix">
+					<label>商品总价：</label>
+					<span class="val">669元</span>
+				</li>
+				<li class="clearfix">
+					<label>活动优惠：</label>
+					<span class="val">-0元</span>
+				</li>
+				<li class="clearfix">
+					<label>优惠券抵扣：</label>
+					<span class="val"><i id="J_couponVal">-0</i>元</span>
+				</li>
+				<li class="clearfix">
+					<label>运费：</label>
+					<span class="val"><i data-id="J_postageVal">0</i>元</span>
+				</li>
+				<li class="clearfix total-price">
+					<label>应付总额：</label>
+					<span class="val"><em data-id="J_totalPrice">{{.allPrice}}</em>元</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="section-bar clearfix">
+		<div class="fl">
+			<div class="seleced-address hide" id="J_confirmAddress">
+			</div>
+			<div class="big-pro-tip hide J_confirmBigProTip"></div>
+		</div>
+		<div class="fr">
+			<input type="submit" class="btn btn-primary"  value="支付">
+		</div>
+	</div>
+</div>
+</form>
+<!-- 收货地址增加 -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+							aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">增加收货地址</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<input type="text" name="name" id="add_name" class="form-control" placeholder="姓名">
+
+				</div>
+				<div class="form-group">
+					<input type="text" name="phone" id="add_phone" class="form-control" placeholder="电话">
+				</div>
+
+				<div class="form-group">
+					<textarea name="address" id="add_address" class="form-control" cols="78" rows="4"
+							  placeholder="详细地址"></textarea>
+				</div>
+
+				<div class="form-group">
+					<input type="text" name="zipcode" id="add_zipcode" class="form-control" placeholder="邮政编码">
+				</div>
+
+			</div>
+
+			<div class="modal-footer">
+
+				<button type="button" class="btn btn-primary" id="addAddress">增加</button>
+
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- 收货地址修改 -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+							aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">修改收货地址</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<input type="hidden" name="id" id="edit_id" />
+					<input type="text" name="name" id="edit_name" class="form-control" placeholder="姓名">
+
+				</div>
+				<div class="form-group">
+					<input type="text" name="phone" id="edit_phone" class="form-control" placeholder="电话">
+				</div>
+
+				<div class="form-group">
+					<textarea name="address" id="edit_address" class="form-control" cols="78" rows="4"
+							  placeholder="详细地址"></textarea>
+				</div>
+
+				<div class="form-group">
+					<input type="text" name="zipcode" id="edit_zipcode" class="form-control" placeholder="邮政编码">
+				</div>
+
+			</div>
+
+			<div class="modal-footer">
+
+				<button type="button" class="btn btn-primary" id="doEditAddress">修改</button>
+
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- footer -->
+<footer class="center">
+
+	<div class="mt20">小米商城|MIUI|米聊|多看书城|小米路由器|视频电话|小米天猫店|小米淘宝直营店|小米网盟|小米移动|隐私政策|Select Region</div>
+	<div>©mi.com 京ICP证110507号 京ICP备10046444号 京公网安备11010802020134号 京网文[2014]0059-0009号</div>
+	<div>违法和不良信息举报电话：185-0130-1238，本网站所列数据，除特殊说明，所有数据均出自我司实验室测试</div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+{{template "../public/page_header.html"}}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading clear">
+                <a href="/{{config "String" "adminPath" ""}}/goodsType/add" class="btn btn-primary fr">增加商品类型</a>
+            </div>
+            <!--
+                列表展示
+            -->
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr class="th">
+                            <th>商品类型名称</th>
+                            <th>商品类型描述</th>
+                            <th class="text-center">状态</th>
+                            <th class="text-center">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{range $key,$value := .goodsTypeList}}
+
+                        <tr>
+                            <td>{{$value.Title}}</td>
+                            <td>{{$value.Description}}</td>
+
+                            <td class="text-center">
+
+                                {{if eq $value.Status 1}}                              
+                                        <img src="/static/admin/images/yes.gif"  class="chStatus" data-id="{{$value.Id}}" data-table="goods_type" data-field="status" />
+                                {{else}}
+                                        <img src="/static/admin/images/no.gif"  class="chStatus" data-id="{{$value.Id}}" data-table="goods_type" data-field="status" />
+                                {{end}}
+                            </td>
+
+
+                            <td class="text-center">
+                                <a href="/{{config "String" "adminPath" ""}}/goodsTypeAttribute?cate_id={{$value.Id}}">属性列表</a>　
+
+                                <a href="/{{config "String" "adminPath" ""}}/goodsType/edit?id={{$value.Id}}" />编辑</a> 　
+                                <a class="delete"
+                                    href="/{{config "String" "adminPath" ""}}/goodsType/delete?id={{$value.Id}}" />删除</a>
+
+                            </td>
+                        </tr>
+
+                        {{end}}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

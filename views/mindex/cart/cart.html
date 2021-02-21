@@ -1,0 +1,118 @@
+{{template "../public/page_header.html" .}}
+<link rel="stylesheet" type="text/css" href="/static/mindex/css/cart.css">
+<script src="/static/mindex/js/cart.js"> </script>
+
+<!-- start banner_x -->
+		<div class="banner_x center">
+			<a href="/" target="_blank"><div class="logo fl"></div></a>			
+			<div class="wdgwc fl ml40">我的购物车</div>
+			<div class="wxts fl ml20">温馨提示：产品是否购买成功，以最终下单为准哦，请尽快结算</div>
+			<div class="dlzc fr">
+				<ul>
+					<li><a href="/login/" target="_blank">登录</a></li>
+					<li>|</li>
+					<li><a href="/pass/" target="_blank">注册</a></li>
+				</ul>
+				
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="xiantiao"></div>
+
+		{{if .cartList}}
+			<div class="gwcxqbj">
+			<div class="gwcxd center clearfix">
+
+				<table class="table">
+
+					<tr class="th">
+						<th>
+								<input type="checkbox" id="checkAll" />
+								全选
+						</th>
+						<th>
+						 商品名称
+						</th>
+						<th>单价</th>
+						<th>数量</th>
+						<th>小计</th>
+						<th>操作</th>
+					</tr>
+				
+			
+					{{range $key,$value := .cartList}}
+
+					<tr class="cart_list">
+
+							<td>
+									<input type="checkbox" goods_id="{{$value.Id}}" goods_color="{{$value.GoodsColor}}" {{if eq $value.Checked true}} checked {{end}} />
+							</td>
+	
+							<td>
+									<div class="col_pic">
+											<img src="{{$value.GoodsImg | formatImg}}" />
+									</div>
+									<div  class="col_title">
+										{{$value.Title}} -- {{$value.GoodsColor}} {{$value.GoodsVersion}}										
+									</div>
+							</td>
+	
+							<td class="price">
+								{{$value.Price}}元
+							</td>
+	
+							<td>
+	
+								<div class="cart_number">
+										<div class="input_left decCart" goods_id="{{$value.Id}}" goods_color="{{$value.GoodsColor}}">-</div>
+	
+										<div class="input_center">
+												<input id="num" name="num" readonly="readonly" type="text" value="{{$value.Num}}" />
+										</div>
+										<div class="input_right incCart" goods_id="{{$value.Id}}" goods_color="{{$value.GoodsColor}}">+</div>
+								</div>
+								
+							</td>
+	
+							<td class="totalPrice">
+								{{mul $value.Price $value.Num}}元
+	
+							</td>
+							<td>
+								<span><a href="/cart/delCart?goods_id={{$value.Id}}&goods_color={{$value.GoodsColor}}" class="delete"> 删除</a></span>
+							</td>
+						</tr>
+				
+						{{end}}
+				</table>
+		
+			</div>
+			<div class="jiesuandan mt20 center">
+				<div class="tishi fl ml20">
+					<ul>
+						<li><a href="/">继续购物</a></li>
+						
+					</ul>
+				</div>
+				<div class="jiesuan fr">
+					<div class="jiesuanjiage fl">合计（不含运费）：<span id="allPrice">{{.allPrice}}元</span></div>
+					<div class="jsanniu fr"><a href="/buy/checkout">去结算</a></div>
+					<div class="clear"></div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			
+		</div>
+		{{else}}
+			<div class="empty-cart-top">
+				<h1>您的购物车还是空的！</h1>
+			</div>
+		{{end}}
+  
+
+	
+	<!-- footer -->
+	{{template "../public/page_footer.html" .}}
+
+	</body>
+</html>

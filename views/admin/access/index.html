@@ -1,0 +1,84 @@
+{{template "../public/page_header.html" .}}
+<div class="container-fluid">
+    <div class="row">
+
+
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>模块名称</th>
+                        <th>节点类型</th>
+                        <th>操作名称</th>
+                        <th>操作地址</th>
+                        <th>排序</th>
+                        <th>描述</th>
+
+                        <th class="text-center">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {{range $key,$value := .accessList}}
+                        <tr>
+                            <td>{{$value.ModuleName}}</td>
+                            <td>
+                                {{if eq $value.Type 1}}
+                                模块
+                                {{else if eq $value.Type 2}}
+                                菜单
+                                {{else}}
+                                操作
+                                {{end}}
+                            </td>
+                            <td>{{$value.ActionName}}</td>
+                            <td>{{$value.Url}}</td>
+                            <td><span class="chSpanNum" data-id="{{$value.Id}}" data-table="access" data-field="sort" data-num="{{$value.Sort}}">
+                                    {{$value.Sort}}
+                                </span>
+                            </td>
+                            <td>{{$value.Description}}</td>
+                            <td class="text-center">
+                                <a href="/{{config "String" "adminPath" ""}}/access/edit?id={{$value.Id}}">编辑</a>　
+                                <a href="/{{config "String" "adminPath" ""}}/access/delete?id={{$value.Id}}">删除</a>
+                            </td>
+                        </tr>
+                            {{range $k,$v := $value.AccessItem}}
+                            <tr>
+                                <td>--{{$v.ModuleName}}</td>
+                                <td>　
+                                    {{if eq $v.Type 1}}
+                                    模块
+                                    {{else if eq $v.Type 2}}
+                                    菜单
+                                    {{else}}
+                                    操作
+                                    {{end}}
+                                </td>
+                                <td>　{{$v.ActionName}}</td>
+                                <td>　{{$v.Url}}</td>
+                                <td><span class="chSpanNum" data-id="{{$v.Id}}" data-table="access" data-field="sort" data-num="{{$v.Sort}}">
+                                    {{$v.Sort}}
+                                </span>
+                                </td>
+                                <td>　{{$v.Description}}</td>
+                                <td class="text-center">
+                                    <a href="/{{config "String" "adminPath" ""}}/access/edit?id={{$v.Id}}">编辑</a>　
+                                    <a href="/{{config "String" "adminPath" ""}}/access/delete?id={{$v.Id}}">删除</a>
+
+                                </td>
+                            </tr>
+                            {{end}}
+                      
+                    {{end}}
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+</body>
+
+</html>

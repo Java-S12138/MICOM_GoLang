@@ -1,0 +1,108 @@
+{{template "../public/page_header.html" .}}
+<!--end header -->
+<link rel="stylesheet" href="/static/mindex/css/pay.css" />
+<script src="/static/mindex/js/bootstrap.js"></script>
+<!-- start banner_x -->
+<div class="banner_x center clearfix">
+	<a href="/" target="_blank">
+		<div class="logo fl"></div>
+	</a>
+	<div class="wdgwc fl ml40">支付页面 </div>
+</div>
+
+<div class="page-main">
+	<div class="checkout-box">
+		<div class="section section-order">
+			<div class="order-info clearfix">
+				<div class="fl">
+					<h2 class="title">订单提交成功！去付款咯～</h2>
+					<p class="order-time" id="J_deliverDesc"></p>
+					<p class="order-time">请在<span class="pay-time-tip">14分59秒</span>内完成支付, 超时后将取消订单</p>
+					<p class="post-info" id="J_postInfo">
+						收货信息：{{.order.Name}}  {{.order.Phone}} &nbsp;&nbsp; {{.order.Address}} </p>
+				</div>
+				<div class="fr">
+					<p class="total">
+						应付总额：<span class="money"><em>{{.order.AllPrice}}</em>元</span>
+					</p>
+					<br>
+					<br>
+					<a href="javascript:void(0);" class="show-detail" id="J_showDetail" data-stat-id="db85b2885a2fdc53">订单详情</a>
+				</div>
+			</div>
+			<i class="iconfont icon-right">√</i>
+			<div class="order-detail">
+				<ul>
+					<li class="clearfix">
+						<div class="label">订单号：</div>
+						<div class="content">
+							<span class="order-num">{{.order.OrderId}}</span>
+						</div>
+					</li>
+					<li class="clearfix">
+						<div class="label">收货信息：</div>
+						<div class="content">
+							收货信息：{{.order.Name}}  {{.order.Phone}} &nbsp;&nbsp; {{.order.Address}} </div>
+					</li>
+					<li class="clearfix">
+						<div class="label">商品名称：</div>
+						<div class="content">
+							{{range $key,$value:=.orderItem}}
+							<p>{{$value.ProductTitle}} {{$value.GoodsVersion}} {{$value.GoodsColor}}  数量：{{$value.ProductNum}} 价格：{{$value.ProductPrice}}</p>
+							{{end}}
+						</div>
+					</li>
+					<li class="clearfix hide">
+						<div class="label">配送时间：</div>
+						<div class="content">
+							不限送货时间 </div>
+					</li>
+					<li class="clearfix">
+						<div class="label">发票信息：</div>
+						<div class="content">
+							电子发票 个人 </div>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="section section-payment">
+			<div class="cash-title" id="J_cashTitle">
+				选择以下支付方式付款
+			</div>
+
+			<div class="payment-box ">
+				
+				<div class="payment-body">
+					<ul class="clearfix payment-list J_paymentList J_linksign-customize">
+						<li id="J_weixin" data-stat-id="4971b7cf6ccf0faf" onclick="_msq.push(['trackEvent', 'f1542ececd0b6bc5-4971b7cf6ccf0faf', '', 'pcpid', '']);"><img src="//c1.mifile.cn/f/i/16/pay/weixinpay0701.png" alt="微信支付" style="margin-left: 0;"></li>
+						<li class="J_bank" data-stat-id="4971b7cf6ccf0faf" onclick="_msq.push(['trackEvent', 'f1542ececd0b6bc5-4971b7cf6ccf0faf', '', 'pcpid', '']);"><input type="radio" name="payOnlineBank" id="alipay" value="alipay"> <img src="//s01.mifile.cn/i/banklogo/payOnline_zfb.png?ver2015" alt="支付宝" style="margin-left: 0;"></li>
+						
+					</ul>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<script>
+	$(function(){
+
+			$(".show-detail").click(function(){
+
+				$(".order-detail").slideToggle();
+			})
+	})
+</script>
+
+<!-- footer -->
+<footer class="center">
+	<div class="mt20">小米商城|MIUI|米聊|多看书城|小米路由器|视频电话|小米天猫店|小米淘宝直营店|小米网盟|小米移动|隐私政策|Select Region</div>
+	<div>©mi.com 京ICP证110507号 京ICP备10046444号 京公网安备11010802020134号 京网文[2014]0059-0009号</div>
+	<div>违法和不良信息举报电话：185-0130-1238，本网站所列数据，除特殊说明，所有数据均出自我司实验室测试</div>
+</footer>
+
+</body>
+
+</html>

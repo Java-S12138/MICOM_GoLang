@@ -1,0 +1,67 @@
+{{template "../public/page_header.html"}}
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                增加分类
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive input-form">
+                    <form action="/{{config "String" "adminPath" ""}}/goodsCate/doAdd" method="post" enctype="multipart/form-data">
+                        <ul>
+
+                            <li> <span>分类名称:</span> <input type="text" name="title" class="input" /></li>
+
+                            <li> <span>上级分类:</span>
+                                <select name="pid" id="pid">
+                                    <option value="0">顶级分类</option>
+                                    {{range $key,$value := .goodsCateList}}                                   
+                                        <option value="{{$value.Id}}">{{$value.Title}}</option>
+                                    {{end}}
+                                </select>
+                            </li>  
+        
+                            <li>  <span>分类图片:</span>  <input type="file" name="cate_img"/></li>
+        
+                            <li>  <span>跳转地址:</span>  <input type="text" name="link" class="input"/></li> 
+        
+                            <li>  <span>分类模板:</span> <input type="text" name="template" class="input"/><span>空表示默认模板</span></li>
+        
+                            <li>  <span>Seo标题:</span> <input type="text" name="sub_title" class="input"/></li>
+        
+                            <li>  <span>Seo关键词: </span><input type="text" name="keywords" class="input"/></li>
+        
+                            <li>  <span>Seo描述:</span> <textarea name="description" id="description" cols="84" rows="4"></textarea></li>                   
+
+                            <li>  <span>排　　序:</span> <input type="text" name="sort" value="10"/></li>       
+                            
+                            <li>  <span>状　　态:</span> 
+                                <input type="radio" name="status" checked value="1" id="a"/> <label for="a">显示</label>   
+                                <input type="radio" name="status" value="0" id="b"/><label for="b">隐藏</label> 　
+                            
+                            </li>
+                            
+        
+
+                            <li>
+                                <br/>
+                                <button type="submit" class="btn btn-primary">提交</button>
+                            </li>
+
+                        </ul>
+
+
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

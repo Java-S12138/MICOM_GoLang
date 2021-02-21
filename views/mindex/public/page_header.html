@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+        <meta name="author" content="order by dede58.com"/>
+		<title>小米商城 GoLang</title>
+		<link rel="stylesheet" type="text/css" href="/static/mindex/css/style.css">
+		<link rel="stylesheet" href="/static/mindex/css/swiper.min.css">
+		<link rel="shortcut icon" href="//s01.mifile.cn/favicon.ico" type="image/x-icon">
+		<script src="/static/mindex/js/jquery-1.10.1.js"></script>
+		<script src="/static/mindex/js/swiper.min.js"></script>
+		<script src="/static/mindex/js/base.js"> </script>
+
+
+	</head>
+	<body>
+	<!-- start header -->
+		<header>
+			<div class="top center">
+				<div class="left fl" style="height:40px;">
+					<ul>
+						{{range $key,$value := .topNavList}}
+							<li><a href="{{$value.Link}}" {{if eq $value.IsOpennew 2}} target="_blank" {{end}}>{{$value.Title}}</a></li>
+						{{end}}
+						<div class="clear"></div>
+					</ul>
+				</div>
+				<div class="right fr">
+					<div class="gouwuche fr"><a href="/cart">购物车</a></div>
+					<div class="fr">
+						{{str2html .userinfo}}
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</header>
+	<!--end header -->
+
+

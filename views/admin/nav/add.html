@@ -1,0 +1,64 @@
+{{template "../public/page_header.html" .}}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="panel panel-default">              
+            <div class="panel-heading">
+             增加导航
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive input-form">
+                    <form action="/{{config "String" "adminPath" ""}}/nav/doAdd" method="post">
+                        <ul>
+
+
+                            <li> <span>导航名称:</span> <input type="text" name="title" /></li>
+
+                            <li> <span>导航位置: </span>
+
+                                <select name="position" id="position">
+                                    <option value="1">顶部</option>
+                                    <option value="2" selected>中间</option>
+                                    <option value="3">底部</option>
+                                </select>
+                            </li>
+
+                            <li> <span>关联商品:</span> <input type="text" name="relation" class="input" /></li>
+
+                            <li> <span>导航链接地址:</span> <input type="text" name="link" /></li>
+
+                            <li> <span>新窗口打开: </span>
+                                <select name="is_opennew" id="is_opennew">
+                                    <option value="1">否</option>
+                                    <option value="2">是</option>
+                                </select>
+
+                            <li> <span>排序:</span> <input type="text" name="sort" value="10" /></li>
+
+                            <li> <span>状态: </span> <input type="radio" name="status" checked value="1" id="a" /> <label
+                                    for="a">显示</label> <input type="radio" name="status" value="0" id="b" /><label
+                                    for="b">隐藏</label> 　</li>
+
+
+                            <li>
+                                <br />
+                                <button type="submit" class="btn btn-primary">提交</button>
+                            </li>
+
+                        </ul>
+
+
+
+
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

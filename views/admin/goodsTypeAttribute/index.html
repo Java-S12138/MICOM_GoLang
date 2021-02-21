@@ -1,0 +1,87 @@
+{{template "../public/page_header.html"}}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="panel panel-default">
+
+
+            <div class="panel-heading clear">
+                <span>类型----{{.goodsType.Title}}</span>
+
+                <a href="/{{config "String" "adminPath" ""}}/goodsTypeAttribute/add?cate_id={{.goodsType.Id}}"
+                    class="btn btn-primary fr">增加商品类型属性</a>
+            </div>
+            <!--
+                列表展示
+            -->
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr class="th">
+                            <th>属性名称</th>
+                            <th>商品类型</th>
+                            <th>属性值的录入方式</th>
+                            <th>可选值列表</th>
+                            <th>增加时间</th>
+                            <th class="text-center">排序</th>
+                            <th class="text-center">状态</th>
+                            <th class="text-center">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{$cateTitle := .goodsType.Title}}
+                        {{range $key,$value := .goodsTypeAttrList}}
+
+                        <tr>
+                            <td>{{$value.Title}}</td>
+
+                            <td>{{$cateTitle}}</td>
+
+                            <td>
+                                {{if eq $value.AttrType 1}}
+                                单行文本框
+                                {{else if eq $value.AttrType 2}}
+                                多行文本框
+                                {{else if eq $value.AttrType 3}}
+                                select下拉框
+                                {{end}}
+
+
+                            </td>
+                            <td>{{$value.AttrValue}}</td>
+                            <td>{{$value.AddTime | unixToDate}}</td>
+                            <td>
+                                <span class="chSpanNum" data-id="{{$value.Id}}" data-table="goods_type_attribute" data-field="sort" data-num="{{$value.Sort}}">{{$value.Sort}}</span>
+                            </td>
+                            <td class="text-center">
+
+                                {{if eq $value.Status 1}}
+                                <img src="/static/admin/images/yes.gif" class="chStatus" data-id="{{$value.Id}}"
+                                    data-table="goods_type_attribute" data-field="status" />
+                                {{else}}
+                                <img src="/static/admin/images/no.gif" class="chStatus" data-id="{{$value.Id}}"
+                                    data-table="goods_type_attribute" data-field="status" />
+                                {{end}}
+                            </td>
+
+                            <td class="text-center">
+                                <a
+                                    href="/{{config "String" "adminPath" ""}}/goodsTypeAttribute/edit?id={{$value.Id}}" />编辑</a>
+                                　
+                                <a class="delete"
+                                    href="/{{config "String" "adminPath" ""}}/goodsTypeAttribute/delete?id={{$value.Id}}&cate_id={{$value.CateId}}" />删除</a>
+                            </td>
+                        </tr>
+
+                        {{end}}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

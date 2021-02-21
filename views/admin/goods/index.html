@@ -1,0 +1,125 @@
+{{template "../public/page_header.html"}}
+
+<script type="text/javascript" src="/static/admin/js/jqPaginator.js"></script>
+
+<div class="panel panel-default">              
+    <div class="panel-heading">
+        <a href="/{{config "String" "adminPath" ""}}/goods/add" class="btn btn-primary">增加商品</a>
+    </div>
+
+    <div class="panel-body">
+        <form role="form" class="form-inline" method="get" action="/{{config "String" "adminPath" ""}}/goods">
+            <div class="form-group">
+                <label for="name">输入关键词</label>
+                <input type="text" class="form-control" value="{{.keyword}}" id="keyword" name="keyword" placeholder="请输入名称">
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-default">开始搜索</button>
+            </div>
+        </form>
+    </div>
+
+
+
+    <div class="panel-body">
+<!--
+列表展示
+-->
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>                                   
+            <tr class="th">
+                <th>商品名称</th>
+                <th>价格</th>
+                <th>原价</th>  
+                <th>点击量</th>
+                <th>上架</th>
+                <th>精品</th>
+                <th>新品</th>
+                <th>热销</th>
+                <th>推荐排序</th>
+                <th>库存</th>                             
+                <th class="text-center">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+                {{range $key,$value := .goodsList}}
+
+                <tr>                        
+                        <td>{{$value.Title}}</td>                        
+                        <td>{{$value.Price}}</td>
+                        <td>{{$value.MarketPrice}}</td>  
+                        <td>{{$value.ClickCount}}</td>      
+                        
+                        <td class="text-center">
+                            {{if eq $value.Status 1}}                              
+                                 <img class="chStatus" src="/static/admin/images/yes.gif" data-id="{{$value.Id}}" data-table="goods" data-field="status"/>
+                            {{else}}
+                                 <img class="chStatus" src="/static/admin/images/no.gif" data-id="{{$value.Id}}" data-table="goods" data-field="status" />
+                            {{end}}
+                         </td>                                              
+                        
+                        <td  class="text-center">                            
+                            {{if eq $value.IsBest 1}}                              
+                                <img class="chStatus" src="/static/admin/images/yes.gif" data-id="{{$value.Id}}" data-table="goods" data-field="is_best"/>
+                            {{else}}
+                                    <img class="chStatus" src="/static/admin/images/no.gif" data-id="{{$value.Id}}" data-table="goods" data-field="is_best" />
+                            {{end}}
+                        </td> 
+                        
+                        <td  class="text-center">
+                            {{if eq $value.IsNew 1}}                              
+                                <img class="chStatus" src="/static/admin/images/yes.gif" data-id="{{$value.Id}}" data-table="goods" data-field="is_new"/>
+                            {{else}}
+                                    <img class="chStatus" src="/static/admin/images/no.gif" data-id="{{$value.Id}}" data-table="goods" data-field="is_new" />
+                            {{end}}
+                        </td> 
+
+                        <td  class="text-center"> 
+                            {{if eq $value.IsHot 1}}                              
+                                <img class="chStatus" src="/static/admin/images/yes.gif" data-id="{{$value.Id}}" data-table="goods" data-field="is_hot"/>
+                            {{else}}
+                                    <img class="chStatus" src="/static/admin/images/no.gif" data-id="{{$value.Id}}" data-table="goods" data-field="is_hot" />
+                            {{end}}
+                        </td> 
+
+                        <td class="text-center">                            
+                            <span class="chSpanNum" data-id="{{$value.Id}}" data-table="goods" data-field="sort">{{$value.Sort}}</span>                        
+                        </td>
+
+                        <td class="text-center">                            
+                            <span class="chSpanNum" data-id="{{$value.Id}}" data-table="goods" data-field="goods_number">{{$value.GoodsNumber}}</span>                                                    
+                        </td>
+
+                        <td class="text-center">
+                            <a href="/{{config "String" "adminPath" ""}}/goods/edit?id={{$value.Id}}" />编辑</a> 　
+                            <a class="delete" href="/{{config "String" "adminPath" ""}}/goods/delete?id={{$value.Id}}" />删除</a>                          
+                        </td>
+                    </tr>       
+                {{end}}
+            </tbody>
+        </table>
+        <div id="pagination" class="pagination fr"></div>
+    </div>
+</div>
+</div>
+<script>
+
+    $(function(){
+        $('#pagination').jqPaginator({
+            totalPages: {{.totalPages}},
+            visiblePages: 10,
+            currentPage: {{.page}},
+            onPageChange: function (num, type) {
+                console.log(num,type)
+                if(type=="change"){
+                    location.href="/{{config "String" "adminPath" ""}}/goods?page="+num;
+                }
+            }
+        });
+    })
+</script>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+{{template "../public/page_header.html"}}
+
+<div class="container-fluid">
+    <div class="row">
+       
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                增加商品类型属性
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive input-form">
+                    <form action="/{{config "String" "adminPath" ""}}/goodsTypeAttribute/doEdit" method="post">
+                        <ul>
+                            
+                                <input type="hidden" name="id" value="{{.goodsTypeAttr.Id}}"/>
+                                <li>  　属性名称： <input type="text" name="title" value="{{.goodsTypeAttr.Title}}"/></li> 
+                                
+                                <li>  　所属类型：
+                                    <select name="cate_id" id="cate_id">       
+                                        {{$cateId := .goodsTypeAttr.CateId}}    
+
+                                        {{range $key,$value := .goodsType }}
+                                            <option {{if eq $value.Id $cateId}} selected {{end}} value="{{$value.Id}}">{{$value.Title}}</option>
+                                        {{end}}
+                                    </select>
+                                </li>         
+                                    
+                                <li>   　录入方式：
+                                        <input type="radio" name="attr_type" value="1"  {{if eq .goodsTypeAttr.AttrType 1}} checked="true" {{end}} id="text" /><label for="text">单行文本框</label> 　
+                                        <input type="radio" name="attr_type" value="2" {{if eq .goodsTypeAttr.AttrType 2}} checked="true" {{end}} id="textarea" /><label for="textarea">多行文本框</label> 　
+                                        <input type="radio" name="attr_type" value="3" {{if eq .goodsTypeAttr.AttrType 3}} checked="true" {{end}}  id="select" /><label for="select">从下面的列表中选择（一行代表一个可选值）</label>　
+                                    
+                                        
+                                </li>
+                                
+                                <li>
+                                    可选值列表：
+                                    <textarea name="attr_value" id="attr_value" cols="60" rows="8" {{if ne .goodsTypeAttr.AttrType 3}} disabled="disabled" {{end}}>{{.goodsTypeAttr.AttrValue}}</textarea>
+                                </li>
+        
+                                <li>  <span>排　　序:</span> <input type="text" name="sort" value="{{.goodsTypeAttr.Sort}}"/></li> 
+                                <li>
+                                    <br/>
+                                    <button type="submit" class="btn btn-primary">提交</button>
+                                </li>
+                            
+                           
+                        </ul>
+
+
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<script>
+
+    $(function(){    
+        $("input[name='attr_type']").change(function(){    
+            if($(this).val()==3){
+                $("#attr_value").attr('disabled',false);
+            }else{
+                $("#attr_value").attr('disabled',true);
+            }
+        })
+    })
+    </script>
+</body>
+</html>

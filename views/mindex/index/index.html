@@ -1,0 +1,391 @@
+{{template "../public/page_header.html" .}}
+
+
+<div style="background-color: #fff;">
+	
+
+<!-- start banner_x -->
+	<div class="banner_x center">
+	<a href="/" target="_self">
+		<div class="logo fl">
+		</div>
+	</a>
+	<a href=""><div class="ad_top fl"></div></a>
+	<div class="nav fl">
+		<ul class="clearfix" id="nav_list">
+			{{range $key,$value := .middleNavList}}
+				<li>
+					<a href="#" target="_blank">{{$value.Title}}</a>
+					{{if eq $value.GoodsNil "NO"}}
+						<ol class="children-list clearfix ">
+							{{range $k,$v := $value.GoodsItem}}
+								<li>
+									<a href="#">
+										<img src="{{$v.GoodsImg | formatImg}}" alt="{{$v.Title}}" />
+										<p class="navtitle">{{$v.Title}}</p>
+										<p>{{$v.Price}}元</p>
+									</a>
+								</li>
+							{{end}}
+						</ol>
+					{{end}}
+				</li>
+			{{end}}
+		</ul>
+	</div>
+	<div class="search fr">
+		<form action="https://www.syjun.vip" method="get">
+			<div class="text fl">
+				<input style="padding-left: 20px ;width: 235px" type="text" class="shuru"  placeholder="个人博客 www.syjun.vip">
+			</div>
+			<div class="submit fr">
+				<input type="submit" class="sousuo" value="搜索"/>
+			</div>
+			<div class="clear"></div>
+		</form>
+		<div class="clear"></div>
+	</div>
+</div>
+<!-- end banner_x -->
+<!-- start banner_y -->
+	<div class="banner_y center">
+		<div class="nav">
+			<ul>
+				{{range $key,$value := .goodsCateList}}
+					<li>
+						{{if eq $value.Link ""}}
+							<a href="category_{{$value.Id}}.html" target="_blank">{{$value.Title}}</a>
+						{{else}}
+							<a href="{{$value.Link}}" target="_blank">{{$value.Title}}</a>
+						{{end}}
+
+						<div class="arrow fr">
+							<img width="14px" src="http://bee.sunyj.xyz/arrow.png" alt="">
+						</div>
+						<div class="pop">
+							<ol class="cate_list clear">
+								{{range $k,$v := $value.GoodsCateItem}}
+									<li>
+										<div class="xuangou_left">
+											{{if eq $v.Link ""}}
+												<a href="category_{{$v.Id}}.html" target="_blank" class="clearfix">
+													<div class="img fl">
+														<img src="{{$v.CateImg | formatImg}}" alt="{{$v.Title}}">
+													</div>
+													<span class="fl">{{$v.Title}}</span>
+												</a>
+											{{else}}
+												<a href="{{$v.Link}}" target="_blank" class="clearfix">
+													<div class="img fl">
+														<img src="{{$v.CateImg | formatImg}}" alt="{{$v.Title}}">
+													</div>
+													<span class="fl">{{$v.Title}}</span>
+												</a>
+											{{end}}
+										</div>
+									</li>
+								{{end}}
+							</ol>
+						</div>
+					</li>
+				{{end}}
+			</ul>
+		</div>
+
+
+		  <div class="swiper-container">
+			<div class="swiper-wrapper">
+				{{range $key, $val := .focusList}}
+					<div class="swiper-slide">
+						<a style="margin-top: 4px" href="{{$val.Link}}">
+							<img src="{{$val.FocusImg | formatImg}}" alt="{{$val.Title}}"  />
+						</a>
+					</div>
+				{{end}}
+			</div>
+			<!-- Add Arrows -->
+			<div class="swiper-button-next"></div>
+			<div class="swiper-button-prev"></div>
+		  </div>
+
+	</div>
+<!-- end banner_y -->
+<!-- start center -->
+	<div class="sub_banner center">
+		<div class="sidebar fl">
+			<div class="fl"><a href=""><img src="./static/mindex/image/hjh_01.gif"></a></div>
+			<div class="fl"><a href=""><img src="./static/mindex/image/hjh_02.gif"></a></div>
+			<div class="fl"><a href=""><img src="./static/mindex/image/hjh_03.gif"></a></div>
+			<div class="fl"><a href=""><img src="./static/mindex/image/hjh_04.gif"></a></div>
+			<div class="fl"><a href=""><img src="./static/mindex/image/hjh_05.gif"></a></div>
+			<div class="fl"><a href=""><img src="./static/mindex/image/hjh_06.gif"></a></div>
+			<div class="clear"></div>
+		</div>
+		<div class="datu fl"><a href=""><img src="http://bee.sunyj.xyz/static/upload/mihome/home001.jpg" alt=""></a></div>
+		<div class="datu fl"><a href=""><img src="http://bee.sunyj.xyz/static/upload/mihome/home002.jpg" alt=""></a></div>
+		<div class="datu fr"><a href=""><img src="http://bee.sunyj.xyz/static/upload/mihome/home003.jpg" alt=""></a></div>
+		<div class="clear"></div>
+
+
+	</div>
+<!-- end center -->
+</div>
+<!-- start danpin -->
+	<div class="danpin center">
+
+		<div class="title center" style="margin-top: 0px">小米秒杀</div>
+		<div class="main center">
+			<div class="mingxing fl countdown">
+					<div class="round">10:00 场</div>
+					<img src="data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAA1CAYAAAAklDnhAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ
+bWFnZVJlYWR5ccllPAAAAyNpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdp
+bj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6
+eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1
+MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJo
+dHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlw
+dGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAv
+IiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RS
+ZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpD
+cmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIiB4bXBNTTpJbnN0YW5j
+ZUlEPSJ4bXAuaWlkOjY4Q0ZFMkY5MTJFNzExRThCMkM4OEM1RTNBNjczQUVBIiB4bXBNTTpEb2N1
+bWVudElEPSJ4bXAuZGlkOjY4Q0ZFMkZBMTJFNzExRThCMkM4OEM1RTNBNjczQUVBIj4gPHhtcE1N
+OkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NjhDRkUyRjcxMkU3MTFFOEIy
+Qzg4QzVFM0E2NzNBRUEiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NjhDRkUyRjgxMkU3MTFF
+OEIyQzg4QzVFM0E2NzNBRUEiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94Onht
+cG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5oEyacAAACoklEQVR42sSYv0tbURTHX0LqD6T4g4pE
+cHDoUOloBxVd/QFFEcQqWtrSKlKFmmAslopohzgIbv4FwUEE0clFujiIi+BSIbRQ0ooKRReRULHf
+S48Qgu++c3/FAx+iyU3eJzf3nnPuC/1qavQ04zVY8szjCHRGNN9cBD6DSkOJKzAGzsOaH/AW1FuY
+jRg4EH/oiJSCTxYk1sDK7T86Iu9BraHED/Au9wlVkYdg2lAiC/rBhYnIB/DIUOQj2M9/UkWkCsQN
+JbbA8l0vqIhMgXIDiZ/gFbgxEakBEwYSf8Eg+OM3gCsyA8oMRETy25UN4IjUgVEDiW2wGDSIIzIL
+ijUljsFLv3WhIvKYFphOXNO6OOUMDhKZA7qFcQF85Q6WXeQpeKEpcULlvY8xthp8iwR8I93qLLb7
+KnOsSPWNfhd6Bro99yHqTi9IhyWzEXIsIXbSG7Djt1jbQHsBZkMkyZRs13wpgIRoiJKy7dsBWh1L
+bN5Vt3JFQrQ2XMYeGKBk5yvSI7aRQ4k0eA4uZZlVPM47lDgTZxd6lKb4AcqkLuKSZiIdVGsiVFNc
+xDV9yT1Orekjoe+MDw4pHqwmaJewit66Ql0QaX+DOTaZe4DitAFZxQaaEynKnJ6KCDeaQAtj3A7V
+kBtXIpwT3iFV06zqquaKPKEtKIsM6Mo/StoWiQeMvSCJjO4+54hEwTCjuTk0STgckUm6QxTY3LgU
+Kc+/jyFrblyKCIkKbnPjSkT8HDGV5saVyBAtVHZz40Ik7HNTRtrcuBARF2tQbW5ciCR0mhvbIs2E
+cnNjWySh29zYFGnIK25KzY1Nkdziptzc2BKJUu7Qbm5sicQom2o3NzZEKqiu/DZpbmyIjIAHNBMZ
+7x4iTALjhcgVQSIl3v87w5vePcY/AQYAFYR6skFSqBUAAAAASUVORK5CYII=" alt="小米闪购">
+					<div style="font-size: 15px;color: rgba(0,0,0,.54)">距离结束还有</div>
+					<div class="clearfix">
+						<span id="hour_show">01</span>
+						<i>:</i>
+						<span id="minute_show">30</span>
+						<i>:</i>
+						<span id="second_show">40</span>
+					</div>
+			</div>
+			<div class="mingxing fl">
+				<div class="sub_mingxing"><a href=""><img src="http://bee.sunyj.xyz/static/upload/mihome/miaos1.png" alt=""></a></div>
+				<div class="pinpai"><a href="">米家天然乳胶护颈枕S 灰色</a></div>
+				<div class="youhui">大颗粒释压体验，升级好睡眠</div>
+				<div class="jiage">189元 <del>249元</del></div>
+			</div>
+			<div class="mingxing fl">
+				<div class="sub_mingxing"><a href=""><img src="http://bee.sunyj.xyz/static/upload/mihome/miaos2.png" alt=""></a></div>
+				<div class="pinpai"><a href="">小米净水器400G增强版 白色</a></div>
+				<div class="youhui">RO反渗透，大流量直出纯净水</DIV>
+				<div class="jiage">1098元 <del>1499元</del></div>
+			</div>
+			<div class="mingxing fl">
+				<div class="sub_mingxing"><a href=""><img src="http://bee.sunyj.xyz/static/upload/mihome/miaos3.png" alt=""></a></div>
+				<div class="pinpai"><a href="">米家空气净化器Pro 白</a></div>
+				<div class="youhui">大空间，快循环</div>
+				<div class="jiage">1299元 <del>1499元</del></div>
+			</div>
+			<div class="mingxing fl">
+				<div class="sub_mingxing"><a href=""><img src="http://bee.sunyj.xyz/static/upload/mihome/miaos4.png" alt=""></a></div>
+				<div class="pinpai"><a href="">小米全面屏电视E32C 灰色 32英寸</a></div>
+				<div class="youhui">全面屏设计，人工智能系统</div>
+				<div class="jiage">799元 <del>999元</del></div>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+
+	<!-- 导航商品栏 -->
+
+	<div class="category_item w" style="margin-top: 40px">
+		<a href="https://www.mi.com/redminote9" target="_blank">
+			<img width="1226px" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/431e5fd6bfd1b67d096928248be18303.jpg" alt="">
+		</a>
+	</div>
+
+	<!-- 导航商品栏 -->
+
+	<!-- 手机 -->
+	<div class="category_item w">
+		<div class="title center">手机
+			<div class="titlemore fr">
+				<a href="category_33.html">查看全部
+						<img width="15px" src="http://bee.sunyj.xyz/arrow.png" alt="">
+				</a>
+			</div>
+		</div>
+		<div class="main center">
+			<div class="category_item_left">
+				<img src="http://bee.sunyj.xyz/static/upload/mihome/shouji.jpeg" alt="手机">
+			</div>
+				<div class="category_item_right">
+					{{range $key, $val := .phoneList}}
+						<div class="hot fl">
+							<div class="xinpin"><span style="background:#fff"></span></div>
+							<div class="tu"><a href="item_{{$val.Id}}.html" target="_blank"><img src="{{$val.GoodsImg | formatImg}}"></a></div>
+							<div class="miaoshu"><a href="">{{$val.Title}}</a></div>
+							<div class="pingjia">{{$val.SubTitle | cutStr}}</div>
+							<div class="jiage">{{$val.Price}}元
+								{{if ne $val.Price $val.MarketPrice }}
+									<del style="color: #b0b0b0;text-decoration: line-through;margin-left: 5px">{{$val.MarketPrice}}元</del>
+								{{end}}
+							</div>
+						</div>
+					{{end}}
+				</div>
+		</div>
+	</div>
+	<!-- 手机 -->
+
+
+	<!-- 导航商品栏 -->
+	<div class="category_item w" style="margin-top: 40px">
+		<a href="https://www.mi.com/a/h/15707.html" target="_blank">
+			<img width="1226px" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/41d16e66381cfeda7b6b39ab67678d5e.jpg" alt="">
+		</a>
+	</div>
+	<!-- 导航商品栏 -->
+
+	<!-- 家电 -->
+	<div class="category_item w">
+	<div class="title center">家电
+		<div class="titlemore fr">
+			<a href="category_50.html">查看全部
+				<img width="15px" src="http://bee.sunyj.xyz/arrow.png" alt="">
+			</a>
+		</div>
+	</div>
+	<div class="main center">
+		<div class="category_item_left">
+			<img src="http://bee.sunyj.xyz/static/upload/mihome/appliancesList.png" alt="家电">
+		</div>
+		<div class="category_item_right">
+			{{range $key, $val := .appliancesList}}
+				<div class="hot fl">
+					<div class="xinpin"><span style="background:#fff"></span></div>
+					<div class="tu"><a href="item_{{$val.Id}}.html" target="_blank"><img src="{{$val.GoodsImg | formatImg}}"></a></div>
+					<div class="miaoshu"><a href="">{{$val.Title}}</a></div>
+					<div class="pingjia">{{$val.SubTitle | cutStr}}</div>
+					<div class="jiage">{{$val.Price}}元
+						{{if ne $val.Price $val.MarketPrice }}
+							<del style="color: #b0b0b0;text-decoration: line-through;margin-left: 5px">{{$val.MarketPrice}}元</del>
+						{{end}}
+					</div>
+				</div>
+			{{end}}
+		</div>
+	</div>
+</div>
+	<!-- 家电 -->
+
+	<!-- 导航商品栏 -->
+	<div class="category_item w" style="margin-top: 40px">
+		<a href="https://www.mi.com/a/h/15707.html" target="_blank">
+			<img width="1226px" src="http://cdn.cnbj1.fds.api.mi-img.com/mi-mall/59e8fc8ba9718c266882719fb4bbcedd.jpg" alt="">
+		</a>
+	</div>
+	<!-- 导航商品栏 -->
+
+	<!-- 智能 -->
+	<div class="category_item w">
+		<div class="title center">智能
+			<div class="titlemore fr">
+				<a href="category_52.html">查看全部
+					<img width="15px" src="http://bee.sunyj.xyz/arrow.png" alt="">
+				</a>
+			</div>
+		</div>
+		<div class="main center">
+			<div class="category_item_left">
+				<img src="http://bee.sunyj.xyz/static/upload/mihome/smart.png" alt="智能">
+			</div>
+			<div class="category_item_right">
+				{{range $key, $val := .smartList}}
+					<div class="hot fl">
+						<div class="xinpin"><span style="background:#fff"></span></div>
+						<div class="tu"><a href="item_{{$val.Id}}.html" target="_blank"><img src="{{$val.GoodsImg | formatImg}}"></a></div>
+						<div class="miaoshu"><a href="">{{$val.Title}}</a></div>
+						<div class="pingjia">{{$val.SubTitle | cutStr}}</div>
+						<div class="jiage">{{$val.Price}}元
+							{{if ne $val.Price $val.MarketPrice }}
+								<del style="color: #b0b0b0;text-decoration: line-through;margin-left: 5px">{{$val.MarketPrice}}元</del>
+							{{end}}
+						</div>
+					</div>
+				{{end}}
+			</div>
+		</div>
+	</div>
+	<!-- 智能 -->
+
+	<!-- 导航商品栏 -->
+	<div class="category_item w" style="margin-top: 40px">
+		<a href="https://www.mi.com/a/h/15707.html" target="_blank">
+			<img width="1226px" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/1615d1842fe85914a545297836a44271.jpg" alt="">
+		</a>
+	</div>
+	<!-- 导航商品栏 -->
+
+	<!-- 视频 -->
+	<div class="category_item w">
+	<div class="title center">视频
+		<div class="titlemore fr">
+			<a href="category_50.html">查看全部
+				<img width="15px" src="http://bee.sunyj.xyz/arrow.png" alt="">
+			</a>
+		</div>
+	</div>
+	<div class="video ">
+		<div class="video-item fl ">
+			<img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/101b19aca4bb489bcef0f503e44ec866.jpg" alt="">
+			<span>Redmi 10X系列发布会</span>
+		</div>
+		<div class="video-item fl " style="margin-left: 14px" >
+			<img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/96563e75833ba4563bd469dd28203b09.jpg" alt="">
+			<span>小米10 青春版 发布会</span>
+		</div>
+		<div class="video-item fl " style="margin-left: 14px">
+			<img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/2fd26bb99b723337a2f8eaba84f7d5bb.jpg" alt="">
+			<span> 小米10 8K手机拍大片</span>
+		</div>
+		<div class="video-item fl " style="margin-left: 14px">
+			<img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/a8dd25cab48c60fc6387b9001eddc3f9.jpg" alt="">
+			<span>小米10发布会</span>
+		</div>
+	</div>
+</div>
+	<!-- 视频 -->
+	{{template "../public/page_footer.html" .}}
+	</body>
+<script>
+
+	var intDiff = parseInt(4800);//倒计时总秒数量
+	function timer(intDiff){
+		window.setInterval(function(){
+			var hour=0, minute=0, second=0;//时间默认值
+			if(intDiff > 0){
+				hour = Math.floor(intDiff / (60 * 60)) ;
+				minute = Math.floor(intDiff / 60) - (hour * 60);
+				second = Math.floor(intDiff) - (hour * 60 * 60) - (minute * 60);
+			}
+			if (minute <= 9) minute = '0' + minute;
+			if (second <= 9) second = '0' + second;
+			if (hour <= 9) hour = '0' + hour;
+			$('#hour_show').text(hour);
+			$('#minute_show').text(minute);
+			$('#second_show').text(second);
+			intDiff--;
+		}, 1000);
+	}
+	$(function(){
+		timer(intDiff);
+	});
+</script>
+</html>

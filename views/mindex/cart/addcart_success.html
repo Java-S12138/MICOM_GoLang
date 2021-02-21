@@ -1,0 +1,104 @@
+{{template "../public/page_header.html" .}}
+{{template "../public/banner.html" .}}
+	<style>
+	
+	.buy-succ-box {
+		margin-bottom: 26px;
+		padding: 40px 0 40px 0;
+		height: 68px;
+		border-bottom: 1px solid #e0e0e0;
+	}
+	.buy-succ-box .goods-content {
+		float: left;
+	}
+
+	.buy-succ-box .actions {
+		float: right;
+	}
+
+	.buy-succ-box .goods-img {
+		float: left;
+		width: 64px;
+		height: 64px;
+	}
+
+	.buy-succ-box .goods-info {
+		float: left;
+		margin-left: 20px;
+	}
+
+	.buy-succ-box .goods-info h3 {
+		margin: 0;
+		color: #424242;
+		font-size: 24px;
+		font-weight: normal;
+		margin-top: 3px;
+	}
+
+	.buy-succ-box .goods-info .name, .buy-succ-box .goods-info .price {
+		margin-right: 15px;
+		font-size: 14px;
+		color: #757575;
+	}
+
+	.buy-succ-box .actions .btn {
+		width: 180px;
+		margin-left: 12px;
+		margin-top: 5px;
+	}
+	.btn-line-gray {
+		border-color: #b0b0b0;
+		background: #fff;
+		color: #757575;
+	}
+
+	.btn {
+		display: inline-block;
+		*zoom: 1;
+		*display: inline;
+		width: 158px;
+		height: 38px;
+		padding: 0;
+		margin: 0;
+		border: 1px solid #b0b0b0;
+		font-size: 14px;
+		line-height: 38px;
+		text-align: center;
+		color: #b0b0b0;
+		cursor: pointer;
+		-webkit-transition: all .4s;
+		transition: all .4s;
+	}
+	.btn-primary {
+		background: #ff6700;
+		border-color: #ff6700;
+		color: #fff;
+	}
+	
+	</style>
+
+	<div class="container w">
+				
+		<div class="buy-succ-box clearfix">
+			<div class="goods-content" id="J_goodsBox">
+				<div class="goods-img">
+					<img src="{{.goods.GoodsImg | formatImg}}" width="64" height="64">
+				</div>
+				<div class="goods-info">
+					<h3>已成功加入购物车！</h3>
+					<span class="name">{{.goods.Title}} -- {{.GoodsColor}} -- {{.goods.GoodsVersion}}</span>
+				</div>
+			</div>
+
+			<div class="actions J_actBox">				
+				<a href="/item_{{.goods.Id}}.html" class="btn btn-line-gray J_goBack">返回上一级</a>
+				<a href="/cart" class="btn btn-primary">去购物车结算</a>
+			</div>
+		</div>
+	
+	</div>		
+
+	{{template "../public/page_footer.html" .}}
+	<!-- end danpin -->
+	</body>
+</html>

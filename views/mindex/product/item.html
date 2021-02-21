@@ -1,0 +1,185 @@
+{{template "../public/page_header.html" .}}
+{{template "../public/banner.html" .}}
+
+<link rel="stylesheet" type="text/css" href="/static/mindex/css/product.css">
+<link rel="stylesheet" href="/static/mindex/css/bootstrap.css">
+<!-- end banner_x -->
+
+<!-- xiangqing -->
+<div class="jieshao mt20 w">
+	<div class="left fl">
+		<div class="swiper-container">
+			<div class="swiper-wrapper item_focus" id="item_focus">
+				{{range $key,$value := .goodsImage}}
+					{{if eq $value.ColorId 0 }}
+						<div class="swiper-slide">
+							<img src="{{$value.ImgUrl | formatImg}}" />
+						</div>
+					{{end}}
+				{{end}}
+			</div>
+
+			<div class="swiper-pagination"></div>
+
+			<!-- Add Arrows -->
+			<div class="swiper-button-next"></div>
+			<div class="swiper-button-prev"></div>
+
+		</div>
+
+
+
+	</div>
+	<div class="right fr">
+		<div class="h3 ml20 mt20" style="font-weight: 400 ;font-size: 24px">{{.goods.Title}}</div>
+		<div class="jianjie mr40 ml20 mt10">{{.goods.SubTitle}}</div>
+		<div class="jiage ml20 mt10">{{.goods.Price}}元
+			{{if eq .goods.Price .goods.MarketPrice}}
+			{{else}}
+				<span class="old_price">{{.goods.MarketPrice}}元</span>
+			{{end}}
+
+		</div>
+		{{if .relationGoods}}
+			<div class="ft20 ml20 mt20">选择版本</div>
+		{{end}}
+
+		<div class="xzbb ml20 mt10">
+			{{$goodsId := .goods.Id}}
+			{{range $key,$value := .relationGoods}}
+			<div class="banben fl {{if eq $value.Id $goodsId}}active{{end}}">
+				<a href="item_{{$value.Id}}.html">
+					<span>{{$value.GoodsVersion}}</span>
+					<span>{{$value.Price}}元</span>
+				</a>
+			</div>
+			{{end}}
+			<div class="clear"></div>
+		</div>
+		<div class="ft20 ml20 mt10">选择颜色</div>
+		<div class="xzbb ml20 mt10 clearfix" id="color-list">
+
+			{{range $key,$value:=.goodsColor}}
+			<div class="banben fl" goods_id="{{$goodsId}}" color_id="{{$value.Id}}">
+				<a>
+					<span class="yuandian" style="background:{{$value.ColorValue}}"></span>
+					<span class="yanse">{{$value.ColorName}}</span>
+				</a>
+			</div>
+			{{end}}
+
+		</div>
+		<div class="xqxq mt10 ml20">
+			<div class="top1 mt10">
+				<div class="left1 fl">{{.goods.Title}}  {{.goods.GoodsVersion}} <span id="color_name"></span></div>
+				<div class="right1 fr">{{.goods.Price}}元</div>
+				<div class="clear"></div>
+			</div>
+			<div class="bot mt20 ft20 ftbc">总计：{{.goods.Price}}元</div>
+		</div>
+		<div class="xiadan ml20 mt10">
+			<input class="jrgwc" type="button" name="jrgwc" id="addCart" value="加入购物车" />
+
+
+
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+
+
+
+<div class="container clearfix">
+
+
+	<div class="c_left">
+
+		<h2>看了又看</h2>
+
+
+		{{range $key, $val := .goodsGift}}
+			<div class="item">
+
+				<a target="_blank" href="/item_{{$val.Id}}.html">
+
+					<img src="{{$val.GoodsImg | formatImg}}" />
+
+					<p style="margin-bottom: 0px" class="price recommendLookPrice4183081">￥{{$val.Price}}</p>
+
+					<p>{{$val.Title}}</p>
+
+				</a>
+
+
+			</div>
+		{{end}}
+	</div>
+
+
+	<div class="c_right right1 fr">
+		<ul class="detail_list clearfix">
+
+			<li class="">详情描述</li>
+
+			<li class="">规格参数</li>
+
+			<li class="">用户评价</li>
+		</ul>
+
+
+		<div class="detail_info">
+
+			<div class="detail_info_item" id="GoodsContent">
+				{{str2html .goods.GoodsContent}}
+			</div>
+
+			<div class="detail_info_item">
+				<ul>
+					{{range $key,$value := .goodsAttr}}
+						<li class="row clearfix">
+							<div class="span5">
+								<h1>{{$value.AttributeTitle}}</h1>
+							</div>
+							<div class="span15">
+								{{$value.AttributeValue | formatAttr | str2html}}
+							</div>
+						</li>
+					{{end}}
+				</ul>
+			</div>
+
+
+			<div class="detail_info_item">
+				<ul class="comment_list">
+					<li>
+						<p>依然极具性价比，希望小米越来越好，因为小米，所以米粉❤</p>
+						<p class="eval-order-info"> <span class="eval-time">2021-02-09
+								14:00:35</span><span> 烟紫</span><span> 8GB+129GB</span><span></span></p>
+
+					</li>
+
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	$(function () {
+		$('#addCart').click(function () {
+			var goods_id = $('#color-list .active').attr('goods_id');
+			color_id = $('#color-list .active').attr('color_id');
+			if (color_id == undefined){
+				alert("您还没有选择颜色哦,暂时不能加入购物车")
+			}else {
+				location.href = "/cart/addCart?goods_id=" + goods_id + '&color_id=' + color_id;
+			}
+		})
+	})
+</script>
+
+{{template "../public/page_footer.html" .}}
+
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小米商城后台登录</title>
+    <link rel="shortcut icon" href="//s01.mifile.cn/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/styles.css">
+</head>
+<body>
+<div class="htmleaf-container">
+
+    <div class="wrapper">
+        <div class="container">
+            <h2>小米商城后台登录</h2>
+            <h6>Powered By: Java_S</h6>
+            <form class="form" action="/{{config "String" "adminPath" ""}}/login/doLogin" method="post">
+                <input type="text" placeholder="用户名" name="username">
+                <input type="password" placeholder="密码" name="password">
+                <input type="text" placeholder="验证码" name="captcha">
+                {{create_captcha}}
+                <button type="submit" id="login-button">登录</button>
+            </form>
+
+        </div>
+
+        <ul class="bg-bubbles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+
+</div>
+
+</body>
+</html>

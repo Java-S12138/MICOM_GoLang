@@ -1,0 +1,51 @@
+{{template "../public/page_header.html" .}}
+<div class="container-fluid">
+    <div class="row">
+     
+        <!--
+            列表展示
+        -->
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="th">
+                        <th>管理员名称</th>
+                        <th>管理员电话</th>
+                        <th>管理员邮箱</th>
+                        <th>管理员角色</th>  
+                        <th>创建时间</th>
+                        <th>状态</th>
+                        <th class="text-center">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {{range $key,$value := .managerList}}
+                    <tr>
+                        <td>{{$value.Username}}</td>
+                        <td>{{$value.Mobile}}</td>
+                        <td>{{$value.Email}}</td>
+                        <td>{{$value.Role.Title}}</td>
+                        <td>{{$value.AddTime | unixToDate}}</td>
+                        <td align="center" >
+                            {{if eq $value.Status 1}}
+                                <img class="chStatus" data-id="{{$value.Id}}" data-table="manager" data-field="status" src="/static/admin/images/yes.gif" />
+                            {{else}}
+                                <img class="chStatus" data-id="{{$value.Id}}" data-table="manager" data-field="status" src="/static/admin/images/no.gif" />
+                            {{end}}
+                        </td>
+                        <td class="text-center">
+                            <a href="/{{config "String" "adminPath" ""}}/manager/edit?id={{$value.Id}}">编辑</a>
+                            <a class="delete" href="/{{config "String" "adminPath" ""}}/manager/delete?id={{$value.Id}}">删除</a>
+                            
+                        </td>
+                    </tr>
+                {{end}}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

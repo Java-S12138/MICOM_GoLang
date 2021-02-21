@@ -1,0 +1,43 @@
+{{template "../public/page_header.html" .}}
+
+<div class="container-fluid">
+    <div class="row">
+        <form action="/{{config "String" "adminPath" ""}}/role/doAuth" method="post">
+
+            <input type="hidden" name="role_id" value="{{.roleId}}">
+            <h3>{{.roleName}}---权限管理</h3>
+            <table class="table table-bordered">
+
+                {{range $key,$value := .accessList}}
+                <tr>
+                    <td align="right" style="background: #D8E2FA; padding-right: 10px; width: 150px;">
+                        <label>
+                            <input type="checkbox" class="module_cbo"  {{if eq $value.Checked true }}checked{{end}}  value="{{$value.Id}}" name="access_node">&nbsp;&nbsp;
+                            {{$value.ModuleName}}
+                        </label>
+                    </td>
+                    <td>
+
+                        {{range $k,$v := $value.AccessItem}}
+                        &nbsp;&nbsp;
+                        <label>
+                            <input type="checkbox" class="action_cbo" {{if eq $v.Checked true }}checked{{end}}  value="{{$v.Id}}" name="access_node">
+                            &nbsp;&nbsp;{{$v.ActionName}}</label>
+                        &nbsp;&nbsp;
+                        {{end}}
+
+                    </td>
+                </tr>
+                {{end}}
+
+
+            </table>           
+            <button type="submit" class="btn btn-primary">提交</button>
+           
+        </form>
+    </div>
+</div>
+
+</body>
+
+</html>

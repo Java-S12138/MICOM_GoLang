@@ -1,0 +1,147 @@
+{{template "../public/page_header.html" .}}
+
+<link rel="stylesheet" href="/static/mindex/css/welcome.css" />
+
+<div class="banner_x center">
+    <a href="/" target="_blank"><div class="logo fl"></div></a>
+
+    <div class="nav fl">
+        <ul class="clearfix" id="nav_list">
+            <li class="link-category" style="width: 140px;">
+                <a href="#">全部商品分类</a>
+
+                <div class="banner_y center ">
+                    <div class="nav">
+                        <ul class="all_goods_cate">
+                            {{range $key,$value := .goodsCateList}}
+                                <li style="width:200px !important">
+                                    {{if eq $value.Link ""}}
+                                        <a href="/category_{{$value.Id}}.html" target="_blank">{{$value.Title}}</a>
+                                    {{else}}
+                                        <a href="{{$value.Link}}" target="_blank">{{$value.Title}}</a>
+                                    {{end}}
+
+                                    <div class="arrow fr">
+                                        <img width="14px" src="http://bee.sunyj.xyz/arrow.png" alt="">
+                                    </div>
+                                    <div class="pop" style="left: 236px;top: -1px">
+                                        <ol class="cate_list clear">
+                                            {{range $k,$v := $value.GoodsCateItem}}
+                                                <li>
+                                                    <div class="xuangou_left">
+                                                        {{if eq $v.Link ""}}
+                                                            <a href="/category_{{$v.Id}}.html" target="_blank" class="clearfix">
+                                                                <div class="img fl">
+                                                                    <img src="{{$v.CateImg | formatImg}}" alt="{{$v.Title}}">
+                                                                </div>
+                                                                <span class="fl">{{$v.Title}}</span>
+                                                            </a>
+                                                        {{else}}
+                                                            <a href="{{$v.Link}}" target="_blank" class="clearfix">
+                                                                <div class="img fl">
+                                                                    <img src="{{$v.CateImg | formatImg}}" alt="{{$v.Title}}">
+                                                                </div>
+                                                                <span class="fl">{{$v.Title}}</span>
+                                                            </a>
+                                                        {{end}}
+                                                    </div>
+                                                </li>
+                                            {{end}}
+                                        </ol>
+                                    </div>
+                                </li>
+                            {{end}}
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            {{range $key,$value := .middleNavList}}
+                <li>
+                    <a href="#" target="_blank">{{$value.Title}}</a>
+                    {{if eq $value.GoodsNil "NO"}}
+                        <ol class="children-list clearfix ">
+                            {{range $k,$v := $value.GoodsItem}}
+                                <li>
+                                    <a href="#">
+                                        <img src="{{$v.GoodsImg | formatImg}}" alt="{{$v.Title}}" />
+                                        <p class="navtitle">{{$v.Title}}</p>
+                                        <p>{{$v.Price}}元</p>
+                                    </a>
+                                </li>
+                            {{end}}
+                        </ol>
+                    {{end}}
+
+
+                </li>
+            {{end}}
+        </ul>
+    </div>
+    <div class="search fr">
+        <form action="https://www.syjun.vip" method="get">
+            <div class="text fl">
+                <input style="padding-left: 20px ;width: 235px" type="text" class="shuru"  placeholder="个人博客 www.syjun.vip">
+            </div>
+            <div class="submit fr">
+                <input type="submit" class="sousuo" value="搜索"/>
+            </div>
+            <div class="clear"></div>
+        </form>
+        <div class="clear"></div>
+    </div>
+</div>
+<!-- self_info -->
+<div class="grzxbj">
+    <div class="selfinfo center">
+        <div class="lfnav fl">
+            <div class="ddzx">个人中心</div>
+            <div class="subddzx">
+                {{template "../public/user_left.html" .}}
+            </div>
+        </div>
+        <div class="rtcont fr">
+            <div class="portal-content-box">
+                <div class="box-bd">
+                    <div class="portal-main clearfix">
+                        <div class="user-card">
+                            <h2 class="username" style="margin-bottom: 10px">{{.user.Email}}</h2>
+                            <p class="tip">上午好</p>
+                            <a class="link">修改个人信息</a>
+                            <img class="avatar" src="../static/mindex/image/user.jpg"
+                                width="150" height="150" alt="2152135723">
+                        </div>
+                        <div class="user-actions">
+                            <ul class="action-list">
+                                <li>账户安全：<span class="level level-2">普通</span></li>
+                                <li>绑定手机：<span class="tel">{{.user.Phone}}</span></li>
+                                <li>绑定邮箱：<span class="tel">{{.user.Email}}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="portal-sub">
+                        <ul class="info-list clearfix">
+                            <li>
+                                <h3>待支付的订单：<span class="num">{{.noPay}}</span></h3>
+                                <a href="//static.mi.com/order/?type=7" data-stat-id="ff48b3f50874dae7">查看待支付订单</a>
+                                <img src="//s01.mifile.cn/i/user/portal-icon-1.png" alt="">
+                            </li>
+                            <li>
+                                <h3>待收货的订单：<span class="num">0</span></h3>
+                                <a href="//static.mi.com/order/?type=8" data-stat-id="f7b15ff4b8710895">查看待收货订单</a>
+                                <img src="//s01.mifile.cn/i/user/portal-icon-2.png" alt="">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<!-- self_info -->
+
+{{template "../public/page_footer.html" .}}
+</body>
+
+</html>
