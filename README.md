@@ -100,7 +100,7 @@ func init() {
 
 ### 3:运行项目
 打包成功后,会在当前项目的根目录下面生成.tar.gz文件,我们将这个文件上传到服务器的文件夹中进行解压即可
-关于文件夹,建议放在www/wwwroot/常见一个文件夹  这样的目录下,我自己的目录:www/wwwroot/micom
+关于文件夹,建议放在www/wwwroot/创建一个文件夹  这样的目录下,我自己的目录:www/wwwroot/micom
 
 接着,进入到micom中,输入 nohub ./项目名称 &  即可运行项目  `nohub ./micom &`
 
