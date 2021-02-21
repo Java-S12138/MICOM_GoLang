@@ -10,6 +10,9 @@
 `项目后台网址`:http://mi.sunyj.xyz/admin/  管理员账号:tourists 密码:123456
 
 由于项目中的static文件内容较多,而且代码放在GitHub上面,有的同学可能下载速度会很慢,我就将这里面的内容放在了蓝奏云,下载完成后,解压到此目录即可https://wwx.lanzoui.com/i3wlPlxmt9e
+
+项目介绍网址:https://syjun.vip/archives/286.html
+
 ## 1:生成数据表
 在MySql数据库中创建名为`micom`的数据,接着运行sql文件
 数据导入成功后,需要修改项目中的数据库连接代码
