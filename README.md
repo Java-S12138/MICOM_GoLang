@@ -7,7 +7,10 @@
  - Redis
 
 `项目演示网址`:http://mi.sunyj.xyz
+
 `项目后台网址`:http://mi.sunyj.xyz/admin/  管理员账号:tourists 密码:123456
+
+`项目视频演示`https://www.bilibili.com/video/BV1Up4y1n7iU#reply4178353497
 
 由于项目中的static文件内容较多,而且代码放在GitHub上面,有的同学可能下载速度会很慢,我就将这里面的内容放在了蓝奏云,下载完成后,解压到此目录即可https://wwx.lanzoui.com/i3wlPlxmt9e
 
